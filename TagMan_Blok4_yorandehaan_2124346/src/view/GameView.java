@@ -1,7 +1,7 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.Observable;
 import java.util.Observer;
@@ -17,6 +17,7 @@ public class GameView extends JPanel implements Observer {
 	
 	public GameView() {
 		setBackground(Color.ORANGE);
+		setPreferredSize(new Dimension(0, 300));
 		setLayout(new GridLayout(4, 1));
 		
 		this.setupJLabels();

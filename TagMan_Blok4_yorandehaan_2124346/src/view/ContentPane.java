@@ -45,10 +45,11 @@ public class ContentPane extends JPanel {
 		leftPanel = new JPanel();
 		leftPanel.setPreferredSize(new Dimension(100, 0));
 		leftPanel.setBackground(timeView.getBackground());
+		
 		leftPanel.add(gameView);
 		leftPanel.add(timeView);
-		leftPanel.setBorder(BorderFactory.createLineBorder(Color.GRAY, 2));
 		
+		leftPanel.setBorder(BorderFactory.createLineBorder(Color.GRAY, 2));
 		leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
 		this.add(leftPanel, BorderLayout.WEST);
 	}
