@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -19,7 +20,7 @@ public class GameView extends JPanel implements Observer {
 		setBackground(Color.ORANGE);
 		setPreferredSize(new Dimension(0, 300));
 		setLayout(new GridLayout(4, 1));
-		
+		setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
 		this.setupJLabels();
 	}
 

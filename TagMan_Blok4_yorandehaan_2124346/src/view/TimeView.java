@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
@@ -19,12 +20,13 @@ public class TimeView extends JPanel implements Observer {
 		this.setPreferredSize(new Dimension(0, 1000));
 		this.setBackground(Color.RED);
 		this.setLayout(new BorderLayout());
+		setBorder(BorderFactory.createLineBorder(Color.GRAY, 2));
 		setupJLabels();
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
-
+		
 	}
 	
 	private void setupJLabels() {

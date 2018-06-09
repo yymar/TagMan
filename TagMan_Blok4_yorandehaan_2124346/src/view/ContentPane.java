@@ -24,8 +24,9 @@ public class ContentPane extends JPanel {
 		playView = new PlayView();
 		gameView = new GameView();
 
+		add(playView);
+		
 		this.setupLeftPanel();
-		this.initializeContentPane();
 		this.setupTimeView();
 	}
 
@@ -37,9 +38,7 @@ public class ContentPane extends JPanel {
 		return timeView;
 	}
 
-	private void initializeContentPane() {
-		this.setBackground(new Color(0, 3, 50));
-	}
+	
 
 	public void setupLeftPanel() {
 		leftPanel = new JPanel();
@@ -49,7 +48,7 @@ public class ContentPane extends JPanel {
 		leftPanel.add(gameView);
 		leftPanel.add(timeView);
 		
-		leftPanel.setBorder(BorderFactory.createLineBorder(Color.GRAY, 2));
+		leftPanel.setBorder(BorderFactory.createLineBorder(Color.GRAY, 3));
 		leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
 		this.add(leftPanel, BorderLayout.WEST);
 	}
