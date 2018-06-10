@@ -15,6 +15,7 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import controller.MainController;
+import model.Game;
 
 public class TimeView extends JPanel implements Observer {
 	private JLabel secondsText;
@@ -60,16 +61,17 @@ public class TimeView extends JPanel implements Observer {
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		int amountOfSeconds = mainController.getTimeAmount();
 		int middleOfPanelWidth = (getWidth() / 2) - (TIMERWIDTH / 2);
-		int perfectStartHeight = (getHeight() / 2) - (getHeight() / 3);
-		
-		timerHeight = getHeight() - (getHeight() /4);
-		interval = timerHeight / mainController.getTimeAmount();
-		timerY = timerHeight - interval;
-		
+		int perfectStartHeight = (getHeight() - getHeight() / 8) + timerY * -1;
+
+		timerHeight = getHeight() - (getHeight() / 4);
+		interval = timerHeight / 30;
+		timerY = mainController.getTimeAmount() * interval;
+
 		g.setColor(Color.BLUE);
 		g.fillRect(middleOfPanelWidth, perfectStartHeight, TIMERWIDTH, timerY);
 		g.setColor(Color.WHITE);
-		g.drawRect(middleOfPanelWidth, perfectStartHeight, TIMERWIDTH, timerHeight);
+		g.drawRect(middleOfPanelWidth, perfectStartHeight, TIMERWIDTH, timerY);
 	}
 }

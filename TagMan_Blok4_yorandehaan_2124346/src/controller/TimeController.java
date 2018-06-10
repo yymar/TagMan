@@ -13,6 +13,10 @@ public class TimeController extends Observable implements Runnable {
 	public void startTimer() {
 		isRunning = true;
 	}
+	
+	public void resetTimer() {
+		
+	}
 
 	@Override
 	public void run() {
