@@ -69,9 +69,26 @@ public class TimeView extends JPanel implements Observer {
 		interval = timerHeight / 30;
 		timerY = mainController.getTimeAmount() * interval;
 
-		g.setColor(Color.BLUE);
-		g.fillRect(middleOfPanelWidth, perfectStartHeight, TIMERWIDTH, timerY);
-		g.setColor(Color.WHITE);
-		g.drawRect(middleOfPanelWidth, perfectStartHeight, TIMERWIDTH, timerY);
+		if (mainController.getTimeAmount() > 15) {
+			g.setColor(new Color(0, 200, 254));
+			g.fillRect(middleOfPanelWidth, perfectStartHeight, TIMERWIDTH, timerY);
+			g.setColor(Color.WHITE);
+			g.drawRect(middleOfPanelWidth, perfectStartHeight, TIMERWIDTH, timerY);
+		}
+		
+		if (mainController.getTimeAmount() <= 15) {
+			g.setColor(new Color(255, 200, 0));
+			g.fillRect(middleOfPanelWidth, perfectStartHeight, TIMERWIDTH, timerY);
+			g.setColor(Color.WHITE);
+			g.drawRect(middleOfPanelWidth, perfectStartHeight, TIMERWIDTH, timerY);
+		}
+		
+		if (mainController.getTimeAmount() <= 7) {
+			g.setColor(new Color(255, 0, 0));
+			g.fillRect(middleOfPanelWidth, perfectStartHeight, TIMERWIDTH, timerY);
+			g.setColor(Color.WHITE);
+			g.drawRect(middleOfPanelWidth, perfectStartHeight, TIMERWIDTH, timerY);
+		}
+	
 	}
 }
