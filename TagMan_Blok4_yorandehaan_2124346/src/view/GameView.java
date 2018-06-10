@@ -36,8 +36,6 @@ public class GameView extends JPanel implements Observer {
 		levelText = new JLabel("level");
 		levelInt = new JLabel();
 
-		
-		
 		// Colors them Yellow
 		scoreText.setForeground(Color.YELLOW);
 		scoreInt.setForeground(Color.YELLOW);

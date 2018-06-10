@@ -20,9 +20,10 @@ public class TimeView extends JPanel implements Observer {
 	private JLabel secondsText;
 	private JLabel secondsInt;
 	private MainController mainController;
+	private static final int TIMERWIDTH = 50;
 	private int timerHeight;
 	private int interval;
-	private static final int TIMERWIDTH = 50;
+	private int timerY;
 
 	public TimeView(MainController mainController) {
 		this.mainController = mainController;
@@ -61,9 +62,14 @@ public class TimeView extends JPanel implements Observer {
 		super.paintComponent(g);
 		int middleOfPanelWidth = (getWidth() / 2) - (TIMERWIDTH / 2);
 		int perfectStartHeight = (getHeight() / 2) - (getHeight() / 3);
+		
+		timerHeight = getHeight() - (getHeight() /4);
+		interval = timerHeight / mainController.getTimeAmount();
+		timerY = timerHeight - interval;
+		
 		g.setColor(Color.BLUE);
-		g.fillRect(middleOfPanelWidth, perfectStartHeight, TIMERWIDTH, 400);
+		g.fillRect(middleOfPanelWidth, perfectStartHeight, TIMERWIDTH, timerY);
 		g.setColor(Color.WHITE);
-		g.drawRect(middleOfPanelWidth, perfectStartHeight, TIMERWIDTH, 402);
+		g.drawRect(middleOfPanelWidth, perfectStartHeight, TIMERWIDTH, timerHeight);
 	}
 }
