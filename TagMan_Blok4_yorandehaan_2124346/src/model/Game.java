@@ -6,7 +6,10 @@ public class Game extends Observable {
 	private int level;
 	private int score;
 	private int timerAmount;
+	private static final int MAX_TIME = 30;
 //	TODO: booleans with failure succes etc. 
+
+	
 
 	public Game() {
 		timerAmount = 30;
@@ -35,5 +38,9 @@ public class Game extends Observable {
 
 	public int getTimerAmount() {
 		return timerAmount;
+	}
+	
+	public static int getMaxTime() {
+		return MAX_TIME;
 	}
 }

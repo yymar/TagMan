@@ -25,6 +25,9 @@ public class MainController {
 	public int getTimeAmount() {
 		return game.getTimerAmount();
 	}
+	public int getMaxTime() {
+		return game.getMaxTime();
+	}
 
 	public void startAllThreads() {
 		new Thread(timeController).start();

@@ -63,31 +63,32 @@ public class TimeView extends JPanel implements Observer {
 		super.paintComponent(g);
 		int amountOfSeconds = mainController.getTimeAmount();
 		int middleOfPanelWidth = (getWidth() / 2) - (TIMERWIDTH / 2);
-		int perfectStartHeight = (getHeight() - getHeight() / 8) + timerY * -1;
+		
+		int drawHeight = (getHeight() - getHeight() / 8) + timerY * -1;
 
 		timerHeight = getHeight() - (getHeight() / 4);
-		interval = timerHeight / 30;
+		interval = timerHeight / mainController.getMaxTime();
 		timerY = mainController.getTimeAmount() * interval;
 
 		if (mainController.getTimeAmount() > 15) {
 			g.setColor(new Color(0, 200, 254));
-			g.fillRect(middleOfPanelWidth, perfectStartHeight, TIMERWIDTH, timerY);
+			g.fillRect(middleOfPanelWidth, drawHeight, TIMERWIDTH, timerY);
 			g.setColor(Color.WHITE);
-			g.drawRect(middleOfPanelWidth, perfectStartHeight, TIMERWIDTH, timerY);
+			g.drawRect(middleOfPanelWidth, drawHeight, TIMERWIDTH, timerY);
 		}
 		
 		if (mainController.getTimeAmount() <= 15) {
 			g.setColor(new Color(255, 200, 0));
-			g.fillRect(middleOfPanelWidth, perfectStartHeight, TIMERWIDTH, timerY);
+			g.fillRect(middleOfPanelWidth, drawHeight, TIMERWIDTH, timerY);
 			g.setColor(Color.WHITE);
-			g.drawRect(middleOfPanelWidth, perfectStartHeight, TIMERWIDTH, timerY);
+			g.drawRect(middleOfPanelWidth, drawHeight, TIMERWIDTH, timerY);
 		}
 		
 		if (mainController.getTimeAmount() <= 7) {
 			g.setColor(new Color(255, 0, 0));
-			g.fillRect(middleOfPanelWidth, perfectStartHeight, TIMERWIDTH, timerY);
+			g.fillRect(middleOfPanelWidth, drawHeight, TIMERWIDTH, timerY);
 			g.setColor(Color.WHITE);
-			g.drawRect(middleOfPanelWidth, perfectStartHeight, TIMERWIDTH, timerY);
+			g.drawRect(middleOfPanelWidth, drawHeight, TIMERWIDTH, timerY);
 		}
 	
 	}
