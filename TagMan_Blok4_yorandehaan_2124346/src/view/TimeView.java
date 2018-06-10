@@ -60,9 +60,10 @@ public class TimeView extends JPanel implements Observer {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		int middleOfPanelWidth = (getWidth() / 2) - (TIMERWIDTH / 2);
-		int perfectStartHeight = getHeight() - (getHeight() / 6);
+		int perfectStartHeight = (getHeight() / 2) - (getHeight() / 3);
 		g.setColor(Color.BLUE);
 		g.fillRect(middleOfPanelWidth, perfectStartHeight, TIMERWIDTH, 400);
-
+		g.setColor(Color.WHITE);
+		g.drawRect(middleOfPanelWidth, perfectStartHeight, TIMERWIDTH, 402);
 	}
 }

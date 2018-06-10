@@ -18,7 +18,7 @@ public class GameView extends JPanel implements Observer {
 	private JLabel levelInt;
 
 	public GameView() {
-		setBackground(Color.ORANGE);
+		setBackground(Color.BLACK);
 		setPreferredSize(new Dimension(0, 300));
 		setLayout(new GridLayout(4, 1));
 		setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
