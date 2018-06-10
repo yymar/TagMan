@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -19,6 +20,9 @@ public class TimeView extends JPanel implements Observer {
 	private JLabel secondsText;
 	private JLabel secondsInt;
 	private MainController mainController;
+	private int timerHeight;
+	private int interval;
+	private static final int TIMERWIDTH = 50;
 
 	public TimeView(MainController mainController) {
 		this.mainController = mainController;
@@ -31,7 +35,6 @@ public class TimeView extends JPanel implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		System.out.println(arg);
 		secondsInt.setText(arg + "");
 	}
 
@@ -51,5 +54,15 @@ public class TimeView extends JPanel implements Observer {
 		secondsText.setFont(new Font("Helvetica", Font.PLAIN, 12));
 		secondsText.setBorder(margin);
 		add(secondsText, BorderLayout.SOUTH);
+	}
+
+	@Override
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		int middleOfPanelWidth = (getWidth() / 2) - (TIMERWIDTH / 2);
+		int perfectStartHeight = getHeight() - (getHeight() / 6);
+		g.setColor(Color.BLUE);
+		g.fillRect(middleOfPanelWidth, perfectStartHeight, TIMERWIDTH, 400);
+
 	}
 }
