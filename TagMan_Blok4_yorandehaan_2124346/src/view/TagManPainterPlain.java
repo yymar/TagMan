@@ -1,5 +1,4 @@
 package view;
 
-public class TagManPainterPlain {
-
+public class TagManPainterPlain  {
 }

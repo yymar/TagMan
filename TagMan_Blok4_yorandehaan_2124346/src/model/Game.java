@@ -3,13 +3,12 @@ package model;
 import java.util.Observable;
 
 public class Game extends Observable {
+	private static final int MAX_TIME = 30;
 	private int level;
 	private int score;
 	private int timerAmount;
-	private static final int MAX_TIME = 30;
-//	TODO: booleans with failure succes etc. 
-
-	
+	private boolean finished;
+	private boolean crashed;
 
 	public Game() {
 		timerAmount = 30;

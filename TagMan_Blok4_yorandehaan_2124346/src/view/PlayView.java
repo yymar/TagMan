@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -15,13 +16,18 @@ import java.util.Observer;
 import javax.swing.JPanel;
 
 import controller.MainController;
+import model.TagMan;
 
 public class PlayView extends JPanel implements Observer, KeyListener {
 	private Thread timerThread = new Thread();
+	private TagMan tagMan;
 	private boolean startPressed;
 	private MainController mainController;
+	private TagManPainterPlain tagManPainterPlain;
+
 	public PlayView(MainController mainController) {
 		this.mainController = mainController;
+		this.tagMan = new TagMan(new Dimension(50, 50), new Point(getWidth() / 2, getHeight() / 2));
 		this.addKeyListener(this);
 		this.setFocusable(true);
 		this.requestFocus();
@@ -32,12 +38,11 @@ public class PlayView extends JPanel implements Observer, KeyListener {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
-		
 		String welcomeText = "Welcome to TagMan";
 		String introText = "move with arrows or numpad";
 		String instructionText = "press S to start";
 		
-	
+		// Introduction Text
 		if (!startPressed) {
 			// draws center of component
 			g2.setColor(Color.RED);
@@ -50,18 +55,26 @@ public class PlayView extends JPanel implements Observer, KeyListener {
 			// TODO: LEVEL + VARIABLE
 			this.drawCenteredString(g2, instructionText, new Rectangle(new Dimension(getWidth(), getHeight() + 100)), new Font("Helvetica", Font.PLAIN, 32));
 		}
+		
+		// Draw TagMan
+		int tagManDimension = 50;
+		int tagManStartPosY = (getHeight() / 2) - (tagManDimension / 2);
+		int tagManStartPosX = tagManDimension / 2 - getWidth();
+
+		g2.setColor(Color.RED);
+		// TODO: FILL OVALS
 	}
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		
+
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		char keyPressed = e.getKeyChar();
 		char startGame = 's';
-		if (keyPressed == startGame) {
+		if (keyPressed == startGame && !startPressed) {
 			mainController.startAllThreads();
 			startPressed = true;
 		}
@@ -69,18 +82,15 @@ public class PlayView extends JPanel implements Observer, KeyListener {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
 
 	}
-	
-	//Method that you can find anywhere ;)
 
+	// Method that you can find anywhere ;)
 	private void drawCenteredString(Graphics2D g, String text, Rectangle rect, Font font) {
 		// Get the FontMetrics
 		FontMetrics metrics = g.getFontMetrics(font);

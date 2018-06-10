@@ -10,18 +10,25 @@ import java.util.Observer;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
+
+import controller.MainController;
 
 public class GameView extends JPanel implements Observer {
 	private JLabel scoreText;
 	private JLabel scoreInt;
 	private JLabel levelText;
 	private JLabel levelInt;
+	private MainController mainController;
 
 	public GameView() {
+		this.mainController = mainController;
 		setBackground(Color.BLACK);
 		setPreferredSize(new Dimension(0, 300));
 		setLayout(new GridLayout(4, 1));
 		setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+
 		this.setupJLabels();
 	}
 
@@ -32,9 +39,9 @@ public class GameView extends JPanel implements Observer {
 
 	private void setupJLabels() {
 		scoreText = new JLabel("score");
-		scoreInt = new JLabel();
+		scoreInt = new JLabel(0 + "");
 		levelText = new JLabel("level");
-		levelInt = new JLabel();
+		levelInt = new JLabel(levelInt + "");
 
 		// Colors them Yellow
 		scoreText.setForeground(Color.YELLOW);
@@ -46,11 +53,11 @@ public class GameView extends JPanel implements Observer {
 		scoreInt.setHorizontalAlignment(JLabel.CENTER);
 		levelText.setHorizontalAlignment(JLabel.CENTER);
 		levelInt.setHorizontalAlignment(JLabel.CENTER);
-		//Set font size
+		// Set font size
 		scoreText.setFont(smallFont());
 		scoreInt.setFont(bigFont());
 		levelText.setFont(smallFont());
-		levelInt.setFont(bigFont());	
+		levelInt.setFont(bigFont());
 		// Adds the labels to the gameViewPane
 		add(scoreText);
 		add(scoreInt);
@@ -61,6 +68,7 @@ public class GameView extends JPanel implements Observer {
 	private Font smallFont() {
 		return new Font("Helvetica", Font.PLAIN, 12);
 	}
+
 	private Font bigFont() {
 		return new Font("Helvetica", Font.PLAIN, 28);
 	}
