@@ -14,15 +14,20 @@ import java.util.Observer;
 
 import javax.swing.JPanel;
 
+import controller.MainController;
+
 public class PlayView extends JPanel implements Observer, KeyListener {
-	
-	public PlayView() {
+	private Thread timerThread = new Thread();
+	private boolean startPressed;
+	private MainController mainController;
+	public PlayView(MainController mainController) {
+		this.mainController = mainController;
 		this.addKeyListener(this);
 		this.setFocusable(true);
 		this.requestFocus();
 		this.setBackground(new Color(0, 3, 50));
 	}
-	
+
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -32,16 +37,19 @@ public class PlayView extends JPanel implements Observer, KeyListener {
 		String introText = "move with arrows or numpad";
 		String instructionText = "press S to start";
 		
-		// draws center of component
-		g2.setColor(Color.RED);
-		g2.drawLine(getWidth() / 2, 0, getWidth() / 2, getHeight());
-		g2.drawLine(0, getHeight() / 2, getWidth(), getHeight() / 2);
-		// Draw text
-		g2.setColor(Color.YELLOW);
-		this.drawCenteredString(g2, welcomeText, new Rectangle(new Dimension(getWidth(), getHeight() - 200)), new Font("Helvetica", Font.PLAIN, 32));
-		this.drawCenteredString(g2, introText, new Rectangle(new Dimension(getWidth(), getHeight() - 100)), new Font("Helvetica", Font.PLAIN, 32));
-		// TODO: LEVEL + VARIABLE 
-		this.drawCenteredString(g2, instructionText, new Rectangle(new Dimension(getWidth(), getHeight() + 100)), new Font("Helvetica", Font.PLAIN, 32));
+	
+		if (!startPressed) {
+			// draws center of component
+			g2.setColor(Color.RED);
+			g2.drawLine(getWidth() / 2, 0, getWidth() / 2, getHeight());
+			g2.drawLine(0, getHeight() / 2, getWidth(), getHeight() / 2);
+			// Draw text
+			g2.setColor(Color.YELLOW);
+			this.drawCenteredString(g2, welcomeText, new Rectangle(new Dimension(getWidth(), getHeight() - 200)), new Font("Helvetica", Font.PLAIN, 32));
+			this.drawCenteredString(g2, introText, new Rectangle(new Dimension(getWidth(), getHeight() - 100)), new Font("Helvetica", Font.PLAIN, 32));
+			// TODO: LEVEL + VARIABLE
+			this.drawCenteredString(g2, instructionText, new Rectangle(new Dimension(getWidth(), getHeight() + 100)), new Font("Helvetica", Font.PLAIN, 32));
+		}
 	}
 
 	@Override
@@ -54,8 +62,8 @@ public class PlayView extends JPanel implements Observer, KeyListener {
 		char keyPressed = e.getKeyChar();
 		char startGame = 's';
 		if (keyPressed == startGame) {
-			
-			this.repaint();
+			mainController.startAllThreads();
+			startPressed = true;
 		}
 	}
 

@@ -5,11 +5,13 @@ import java.util.Observable;
 public class Game extends Observable {
 	private int level;
 	private int score;
+	private int timerAmount;
+//	TODO: booleans with failure succes etc. 
 
-	
-	
-	
-	
+	public Game() {
+		timerAmount = 30;
+	}
+
 	// Getters and Setters
 	public int getLevel() {
 		return level;
@@ -27,4 +29,11 @@ public class Game extends Observable {
 		this.score = score;
 	}
 
+	public void updateTimerAmount(int i) {
+		this.timerAmount = timerAmount - i;
+	}
+
+	public int getTimerAmount() {
+		return timerAmount;
+	}
 }

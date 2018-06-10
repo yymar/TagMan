@@ -3,29 +3,31 @@ package controller;
 import java.util.Observable;
 
 public class TimeController extends Observable implements Runnable {
-	private MainController controller;
-	
-	
+	private MainController mainController;
+	private boolean isRunning;
+
 	public TimeController(MainController controller) {
-		this.controller = controller;
+		this.mainController = controller;
 	}
 
+	public void startTimer() {
+		isRunning = true;
+	}
 
 	@Override
 	public void run() {
-		countDown();
-		notifyObservers();
-	}
-	
-	private void countDown() {
-		for(int i = 30; i >= 0; i--) {
+		while (isRunning) {
 			try {
 				Thread.sleep(1000);
-				System.out.println(i);
+				mainController.updateTimerAmount(1);
+				if (mainController.getTimeAmount() <= 0) {
+					isRunning = false;
+				}
+				this.setChanged();
+				this.notifyObservers(mainController.getTimeAmount());
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
 	}
-	
 }

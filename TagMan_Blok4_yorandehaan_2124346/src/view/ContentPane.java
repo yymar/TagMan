@@ -20,8 +20,8 @@ public class ContentPane extends JPanel {
 	public ContentPane(MainController controller) {
 		this.mainController = controller;
 		this.setLayout(new BorderLayout());
-		timeView = new TimeView();
-		playView = new PlayView();
+		timeView = new TimeView(mainController);
+		playView = new PlayView(mainController);
 		gameView = new GameView();
 
 		add(playView);

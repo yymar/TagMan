@@ -17,5 +17,18 @@ public class MainController {
 		
 		mainFrame.initializeFrame();
 	}
+
+	public void updateTimerAmount(int i) {
+		game.updateTimerAmount(i);
+	}
+
+	public int getTimeAmount() {
+		return game.getTimerAmount();
+	}
+
+	public void startAllThreads() {
+		new Thread(timeController).start();
+		timeController.startTimer();
+	}
 	
 }

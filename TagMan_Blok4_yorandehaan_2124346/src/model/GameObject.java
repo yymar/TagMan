@@ -1,25 +1,16 @@
 package model;
 
+import java.awt.Dimension;
+import java.awt.Point;
+
 public abstract class GameObject {
-	private int height;
-	private int width;
+	private Dimension dimension;
+	private Point point;
 
 	
-	// Getters and setters
-	public int getHeight() {
-		return height;
+	// TODO: INTERSECTS AND TRANSLATE FOR COLLISION DETECTION
+	public GameObject(Dimension dimension, Point point) {
+		this.dimension = dimension;
+		this.point = point;
 	}
-
-	public void setHeight(int height) {
-		this.height = height;
-	}
-
-	public int getWidth() {
-		return width;
-	}
-
-	public void setWidth(int width) {
-		this.width = width;
-	}
-
 }
