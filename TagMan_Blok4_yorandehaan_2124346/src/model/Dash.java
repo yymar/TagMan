@@ -12,4 +12,6 @@ public class Dash extends GameObject {
 		this.dimension = dimension;
 		this.point = point;
 	}
+	
+	
 }

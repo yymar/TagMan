@@ -1,8 +1,14 @@
 package model;
 
+import java.awt.Dimension;
+import java.awt.Point;
+import java.util.ArrayList;
 import java.util.Observable;
+import java.util.Random;
 
 public class Game extends Observable {
+	private ArrayList<Dash> dashes;
+	private int amountOfDashes;
 	private static final int MAX_TIME = 30;
 	private int level;
 	private int score;
@@ -12,6 +18,16 @@ public class Game extends Observable {
 
 	public Game() {
 		timerAmount = 30;
+		amountOfDashes = 10;
+	}
+
+	public void addDashes() {
+		int spaceBetweenDashes = 130;
+		for (int i = 0; i < amountOfDashes; i++) {
+			Dash dash = new Dash(new Dimension(50, 20), new Point(spaceBetweenDashes, 0));
+			dashes.add(dash);
+			spaceBetweenDashes++;
+		}
 	}
 
 	// Getters and Setters
@@ -38,7 +54,7 @@ public class Game extends Observable {
 	public int getTimerAmount() {
 		return timerAmount;
 	}
-	
+
 	public static int getMaxTime() {
 		return MAX_TIME;
 	}

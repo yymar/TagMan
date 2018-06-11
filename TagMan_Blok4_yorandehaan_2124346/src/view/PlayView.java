@@ -14,20 +14,36 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JPanel;
+import javax.swing.text.html.HTML.Tag;
 
 import controller.MainController;
 import model.TagMan;
 
 public class PlayView extends JPanel implements Observer, KeyListener {
-	private Thread timerThread = new Thread();
 	private TagMan tagMan;
 	private boolean startPressed;
 	private MainController mainController;
-	private TagManPainterPlain tagManPainterPlain;
-
+	private Color firstCircle;
+	private Color secondCircle;
+	private Color thirdCircle;
+	private int playerX;
+	private int playerY;
+	private int playerWidth;
+	private int playerHeight;
+	
 	public PlayView(MainController mainController) {
 		this.mainController = mainController;
-		this.tagMan = new TagMan(new Dimension(50, 50), new Point(getWidth() / 2, getHeight() / 2));
+		this.tagMan = new TagMan(new Dimension(50,50), new Point(100,100));
+		
+		this.playerX = (int) tagMan.getPoint().getX();
+		this.playerY = (int) tagMan.getPoint().getY();
+		this.playerWidth = (int) tagMan.getDimension().getWidth();
+		this.playerHeight = (int) tagMan.getDimension().getHeight();
+		
+		this.firstCircle = Color.RED;
+		this.secondCircle = Color.ORANGE;
+		this.thirdCircle = Color.YELLOW;
+		
 		this.addKeyListener(this);
 		this.setFocusable(true);
 		this.requestFocus();
@@ -38,6 +54,7 @@ public class PlayView extends JPanel implements Observer, KeyListener {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
+
 		String welcomeText = "Welcome to TagMan";
 		String introText = "move with arrows or numpad";
 		String instructionText = "press S to start";
@@ -54,15 +71,14 @@ public class PlayView extends JPanel implements Observer, KeyListener {
 			this.drawCenteredString(g2, introText, new Rectangle(new Dimension(getWidth(), getHeight() - 100)), new Font("Helvetica", Font.PLAIN, 32));
 			// TODO: LEVEL + VARIABLE
 			this.drawCenteredString(g2, instructionText, new Rectangle(new Dimension(getWidth(), getHeight() + 100)), new Font("Helvetica", Font.PLAIN, 32));
-		}
-		
-		// Draw TagMan
-		int tagManDimension = 50;
-		int tagManStartPosY = (getHeight() / 2) - (tagManDimension / 2);
-		int tagManStartPosX = tagManDimension / 2 - getWidth();
-
-		g2.setColor(Color.RED);
-		// TODO: FILL OVALS
+		} 
+		// TODO: DRAW TAGMAN
+		g2.setColor(firstCircle);
+		g2.fillOval(playerX, playerY, playerWidth, playerHeight);
+		g2.setColor(secondCircle);
+		g2.fillOval(playerX, playerY, playerWidth, playerHeight);
+		g2.setColor(thirdCircle);
+		g2.fillOval(playerX, playerY, playerWidth, playerHeight);
 	}
 
 	@Override
@@ -72,12 +88,29 @@ public class PlayView extends JPanel implements Observer, KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		char keyPressed = e.getKeyChar();
-		char startGame = 's';
-		if (keyPressed == startGame && !startPressed) {
-			mainController.startAllThreads();
-			startPressed = true;
-		}
+		
+			switch (e.getKeyCode()) {
+			case KeyEvent.VK_S:
+			if (!startPressed) {
+				mainController.startAllThreads();
+				startPressed = true;
+			}
+				break;
+			case KeyEvent.VK_RIGHT:
+				System.out.println("right");
+				tagMan.moveForwards(playerX);
+				
+				break;
+			case KeyEvent.VK_UP:
+				tagMan.moveUpwards(playerY);
+				System.out.println("up");				
+				break;
+			case KeyEvent.VK_DOWN:
+				tagMan.moveDownwards(playerY);
+				System.out.println("down");
+				break;
+			}
+		
 	}
 
 	@Override
