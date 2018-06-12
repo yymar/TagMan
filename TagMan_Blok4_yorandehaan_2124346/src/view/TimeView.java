@@ -39,7 +39,6 @@ public class TimeView extends JPanel implements Observer {
 
 	private void setupJLabels() {
 		Border margin = new EmptyBorder(20, 20, 10, 20);
-
 		secondsInt = new JLabel(mainController.getTimeAmount() + "");
 		secondsInt.setHorizontalAlignment(JLabel.CENTER);
 		secondsInt.setForeground(Color.YELLOW);

@@ -6,8 +6,8 @@ public class TimeController extends Observable implements Runnable {
 	private MainController mainController;
 	private boolean isRunning;
 
-	public TimeController(MainController controller) {
-		this.mainController = controller;
+	public TimeController(MainController mainController) {
+		this.mainController = mainController;
 	}
 
 	public void startTimer() {
@@ -15,7 +15,7 @@ public class TimeController extends Observable implements Runnable {
 	}
 	
 	public void resetTimer() {
-		
+
 	}
 
 	@Override

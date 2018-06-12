@@ -28,7 +28,6 @@ public class Game extends Observable implements Runnable{
 		
 		createDashes();
 		createWalls();
-		update();
 	}
 	
 	public void createDashes() {
@@ -99,6 +98,10 @@ public class Game extends Observable implements Runnable{
 
 	public int getTimerAmount() {
 		return timerAmount;
+	}
+	
+	public void setTimerAmount(int timerAmount) {
+		this.timerAmount = timerAmount;
 	}
 
 	public static int getMaxTime() {

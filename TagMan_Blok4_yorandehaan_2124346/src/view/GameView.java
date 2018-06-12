@@ -70,7 +70,6 @@ public class GameView extends JPanel implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		System.out.println("hi");
 		Game game = (Game) o;
 		levelInt.setText(game.getLevel() + "");
 		scoreInt.setText(game.getScore() + "");
