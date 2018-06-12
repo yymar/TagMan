@@ -18,23 +18,19 @@ public class MainController {
 		timeController.addObserver(mainFrame.getTimeView());
 		mainFrame.initializeFrame();
 	}
-	
+
 	public void move(KeyEvent e) {
 		int keyPressed = e.getKeyCode();
-		
+
 		if (keyPressed == e.VK_RIGHT) {
-			System.out.println("forwards");
 			game.getTagMan().moveForwards();
 		}
 		if (keyPressed == e.VK_DOWN) {
-			System.out.println("down");
 			game.getTagMan().moveDownwards();
 		}
 		if (keyPressed == e.VK_UP) {
-			System.out.println("up");
 			game.getTagMan().moveUpwards();
 		}
-
 	}
 	
 	public void updateTimerAmount(int i) {
