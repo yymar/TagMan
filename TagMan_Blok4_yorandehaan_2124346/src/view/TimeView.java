@@ -35,10 +35,6 @@ public class TimeView extends JPanel implements Observer {
 		setupJLabels();
 	}
 
-	@Override
-	public void update(Observable o, Object arg) {
-		secondsInt.setText(arg + "");
-	}
 
 	private void setupJLabels() {
 		Border margin = new EmptyBorder(20, 20, 10, 20);
@@ -91,5 +87,10 @@ public class TimeView extends JPanel implements Observer {
 			g.drawRect(middleOfPanelWidth, drawHeight, TIMERWIDTH, timerY);
 		}
 	
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		secondsInt.setText(arg + "");
 	}
 }
