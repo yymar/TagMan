@@ -5,7 +5,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Observable;
 
-public class Game extends Observable {
+public class Game extends Observable implements Runnable{
 	private ArrayList<Dash> dashes;
 	private ArrayList<Wall> walls;
 	private TagMan tagMan;
@@ -22,11 +22,13 @@ public class Game extends Observable {
 		tagMan = new TagMan(new Dimension(50, 50), new Point(5, 375));
 		dashes = new ArrayList<>();
 		walls = new ArrayList<>();
+		level = 1;
 		startPressed = false;
 		timerAmount = 30;
 		
 		createDashes();
 		createWalls();
+		update();
 	}
 	
 	public void createDashes() {
@@ -57,9 +59,12 @@ public class Game extends Observable {
 		walls.add(wall4);
 	}
 
+	public void update() {
+		this.setChanged();
+		this.notifyObservers();
+	}
+	
 	// Getters and Setters
-
-
 	public TagMan getTagMan() {
 		return tagMan;
 	}
@@ -106,6 +111,11 @@ public class Game extends Observable {
 
 	public void setStartPressed(boolean startPressed) {
 		this.startPressed = startPressed;
+	}
+
+	@Override
+	public void run() {
+		
 	}
 	
 }

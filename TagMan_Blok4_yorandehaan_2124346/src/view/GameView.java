@@ -10,10 +10,9 @@ import java.util.Observer;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
 
 import controller.MainController;
+import model.Game;
 
 public class GameView extends JPanel implements Observer {
 	private JLabel scoreText;
@@ -22,26 +21,22 @@ public class GameView extends JPanel implements Observer {
 	private JLabel levelInt;
 	private MainController mainController;
 
-	public GameView() {
+	public GameView(Game game) {
 		this.mainController = mainController;
+		game.addObserver(this);
 		setBackground(Color.BLACK);
 		setPreferredSize(new Dimension(0, 300));
 		setLayout(new GridLayout(4, 1));
 		setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
-
 		this.setupJLabels();
 	}
 
-	@Override
-	public void update(Observable arg0, Object arg1) {
-
-	}
 
 	private void setupJLabels() {
 		scoreText = new JLabel("score");
-		scoreInt = new JLabel(0 + "");
+		scoreInt = new JLabel("");
 		levelText = new JLabel("level");
-		levelInt = new JLabel(levelInt + "");
+		levelInt = new JLabel("");
 
 		// Colors them Yellow
 		scoreText.setForeground(Color.YELLOW);
@@ -71,5 +66,13 @@ public class GameView extends JPanel implements Observer {
 
 	private Font bigFont() {
 		return new Font("Helvetica", Font.PLAIN, 28);
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		System.out.println("hi");
+		Game game = (Game) o;
+		levelInt.setText(game.getLevel() + "");
+		scoreInt.setText(game.getScore() + "");
 	}
 }

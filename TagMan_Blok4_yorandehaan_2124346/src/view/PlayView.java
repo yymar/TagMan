@@ -16,14 +16,16 @@ import javax.swing.JPanel;
 
 import controller.MainController;
 import model.Dash;
+import model.Game;
 import model.Wall;
 
 public class PlayView extends JPanel implements Observer {
 	private MainController mainController;
 	private TagManPainterPlain tagManPainterPlain;
 
-	public PlayView(MainController mainController) {
+	public PlayView(MainController mainController, Game game) {
 		this.mainController = mainController;
+		game.addObserver(this);
 		this.tagManPainterPlain = new TagManPainterPlain();
 		this.setBackground(new Color(0, 3, 50));
 	}

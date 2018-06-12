@@ -26,8 +26,9 @@ public class TimeView extends JPanel implements Observer {
 	private int interval;
 	private int timerY;
 
-	public TimeView(MainController mainController) {
+	public TimeView(MainController mainController, Game game) {
 		this.mainController = mainController;
+		game.addObserver(this);
 		this.setPreferredSize(new Dimension(0, 1000));
 		this.setBackground(Color.BLACK);
 		this.setLayout(new BorderLayout());

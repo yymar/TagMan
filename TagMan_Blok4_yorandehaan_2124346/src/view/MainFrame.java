@@ -7,6 +7,7 @@ import java.util.Observable;
 import javax.swing.JFrame;
 
 import controller.MainController;
+import model.Game;
 
 public class MainFrame extends JFrame implements Runnable, KeyListener {
 	private MainController mainController;
@@ -14,9 +15,9 @@ public class MainFrame extends JFrame implements Runnable, KeyListener {
 	public static int FPS = 60; 
 	private char startChar = 's';
 
-	public MainFrame(MainController controller) {
+	public MainFrame(MainController controller, Game game) {
 		this.mainController = controller;
-		contentPane = new ContentPane(controller);
+		contentPane = new ContentPane(controller, game);
 		this.addKeyListener(this);
 		this.startThread();
 	}

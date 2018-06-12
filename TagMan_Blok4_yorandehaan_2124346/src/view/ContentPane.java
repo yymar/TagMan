@@ -9,6 +9,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
 import controller.MainController;
+import model.Game;
 
 public class ContentPane extends JPanel {
 	private MainController mainController;
@@ -17,13 +18,13 @@ public class ContentPane extends JPanel {
 	private GameView gameView;
 	private JPanel leftPanel;
 	
-	public ContentPane(MainController controller) {
+	public ContentPane(MainController controller, Game game) {
 		this.mainController = controller;
 		this.setLayout(new BorderLayout());
 		this.setPreferredSize(new Dimension(1300, 800));
-		timeView = new TimeView(mainController);
-		playView = new PlayView(mainController);
-		gameView = new GameView();
+		timeView = new TimeView(mainController, game);
+		playView = new PlayView(mainController, game);
+		gameView = new GameView(game);
 
 		add(playView);
 		

@@ -13,9 +13,10 @@ public class MainController {
 	public MainController() {
 		this.timeController = new TimeController(this);
 		this.game = new Game();
-		this.mainFrame = new MainFrame(this);
+		this.mainFrame = new MainFrame(this, game);
 		
 		timeController.addObserver(mainFrame.getTimeView());
+		game.update();
 		mainFrame.initializeFrame();
 	}
 
