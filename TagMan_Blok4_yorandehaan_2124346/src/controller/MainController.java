@@ -14,7 +14,8 @@ public class MainController {
 		this.game = new Game();
 		this.timeController = new TimeController(this);
 		this.mainFrame = new MainFrame(this, game);
-		
+
+		game.update();
 		timeController.addObserver(mainFrame.getTimeView());
 		mainFrame.initializeFrame();
 	}
@@ -23,7 +24,6 @@ public class MainController {
 		int keyPressed = e.getKeyCode();
 		
 		if (game.getStartPressed()) {
-
 			if (keyPressed == e.VK_RIGHT && game.getTagMan().getPoint().getX() <= mainFrame.getWidth() - 100) {
 				game.getTagMan().moveForwards();
 			}
@@ -55,6 +55,7 @@ public class MainController {
 		// Prevents Threads from starting multiple times.
 		if (!game.getStartPressed()) {
 			new Thread(timeController).start();
+			new Thread(game).start();
 			timeController.startTimer();
 			game.setStartPressed(true);
 		}

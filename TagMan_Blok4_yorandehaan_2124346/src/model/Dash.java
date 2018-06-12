@@ -3,18 +3,33 @@ package model;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.util.Random;
 
 public class Dash extends GameObject {
 	private Dimension dimension;
 	private Point point;
 	private Color dashColour;
-
+	private Random random;
+	private int xPos;
+	private int yPos;
+	private int speed;
+	
 	public Dash(Dimension dimension, Point point) {
 		super(dimension, point);
 		this.dimension = dimension;
 		this.point = point;
-		
+		this.random = new Random();
+
+		this.speed = random.nextInt(5) + 1;
+
+		this.xPos = (int) point.getX();
+		this.yPos = (int) point.getY();
 		this.dashColour = Color.RED;
+	}
+
+	public void moveDownwards() {
+		point.setLocation(xPos, yPos - speed);
+		yPos = yPos + speed;
 	}
 
 	public Color getDashColor() {
@@ -36,5 +51,5 @@ public class Dash extends GameObject {
 	public void setPoint(Point point) {
 		this.point = point;
 	}
-	
+
 }

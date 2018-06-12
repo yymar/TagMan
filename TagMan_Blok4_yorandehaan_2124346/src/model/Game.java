@@ -58,6 +58,24 @@ public class Game extends Observable implements Runnable{
 		walls.add(wall4);
 	}
 
+	public void update() {
+		this.setChanged();
+		this.notifyObservers();
+	}
+	
+	public void moveDashes() {
+		while (startPressed) {
+			try {
+				Thread.sleep(1000 / 60);
+				for (Dash dash : dashes) {
+					dash.moveDownwards();
+				}
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	// Getters and Setters
 	public TagMan getTagMan() {
 		return tagMan;
@@ -113,7 +131,7 @@ public class Game extends Observable implements Runnable{
 
 	@Override
 	public void run() {
-		
+		moveDashes();
 	}
 	
 }
