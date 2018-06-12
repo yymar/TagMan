@@ -16,7 +16,6 @@ public class MainController {
 		this.mainFrame = new MainFrame(this, game);
 		
 		timeController.addObserver(mainFrame.getTimeView());
-		game.update();
 		mainFrame.initializeFrame();
 	}
 
@@ -25,7 +24,7 @@ public class MainController {
 		
 		if (game.getStartPressed()) {
 
-			if (keyPressed == e.VK_RIGHT) {
+			if (keyPressed == e.VK_RIGHT && game.getTagMan().getPoint().getX() <= mainFrame.getWidth() - 100) {
 				game.getTagMan().moveForwards();
 			}
 			if (keyPressed == e.VK_DOWN) {

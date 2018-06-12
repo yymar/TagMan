@@ -58,11 +58,6 @@ public class Game extends Observable implements Runnable{
 		walls.add(wall4);
 	}
 
-	public void update() {
-		this.setChanged();
-		this.notifyObservers();
-	}
-	
 	// Getters and Setters
 	public TagMan getTagMan() {
 		return tagMan;
