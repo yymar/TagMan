@@ -55,20 +55,16 @@ public class MainFrame extends JFrame implements Runnable, KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		int event = e.getKeyChar(); 
+		int event = e.getKeyChar();
 
-		mainController.move(e);
-		
-		switch (e.getKeyCode()) {
-		case KeyEvent.VK_S:
-			if (event == startChar && !mainController.getGame().getStartPressed()) {
-				mainController.startAllThreads();
-				mainController.getGame().setStartPressed(true);
-				break;
-			}
+		if (event == 's') {
+			mainController.startAllThreads();
+		}
+		if (event == 27) {
+			mainController.systemExit();
 		}
 		
-
+		mainController.move(e);
 	}
 
 	@Override

@@ -22,6 +22,7 @@ public class Game extends Observable {
 		tagMan = new TagMan(new Dimension(50, 50), new Point(5, 375));
 		dashes = new ArrayList<>();
 		walls = new ArrayList<>();
+		startPressed = false;
 		timerAmount = 30;
 		
 		createDashes();
