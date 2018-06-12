@@ -55,9 +55,9 @@ public class MainController {
 		// Prevents Threads from starting multiple times.
 		if (!game.getStartPressed()) {
 			new Thread(timeController).start();
-			new Thread(game).start();
 			timeController.startTimer();
 			game.setStartPressed(true);
+			new Thread(game).start();
 		}
 	}
 	

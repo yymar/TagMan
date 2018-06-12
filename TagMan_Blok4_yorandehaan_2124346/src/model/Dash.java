@@ -20,7 +20,7 @@ public class Dash extends GameObject {
 		this.point = point;
 		this.random = new Random();
 
-		this.speed = random.nextInt(5) + 1;
+		this.speed = random.nextInt(6) + 1;
 
 		this.xPos = (int) point.getX();
 		this.yPos = (int) point.getY();
