@@ -1,5 +1,7 @@
 package controller;
 
+import java.awt.event.KeyEvent;
+
 import model.Game;
 import view.MainFrame;
 
@@ -17,7 +19,11 @@ public class MainController {
 		
 		mainFrame.initializeFrame();
 	}
-
+	
+	public void move(int event) {
+		
+	}
+	
 	public void updateTimerAmount(int i) {
 		game.updateTimerAmount(i);
 	}

@@ -20,30 +20,26 @@ import controller.MainController;
 import model.TagMan;
 
 public class PlayView extends JPanel implements Observer, KeyListener {
-	private TagMan tagMan;
 	private boolean startPressed;
 	private MainController mainController;
 	private Color firstCircle;
 	private Color secondCircle;
 	private Color thirdCircle;
+	private char startChar = 's';
+	private char nextLevel = 'l';
+	
 	private int playerX;
 	private int playerY;
 	private int playerWidth;
 	private int playerHeight;
-	
+
 	public PlayView(MainController mainController) {
 		this.mainController = mainController;
-		this.tagMan = new TagMan(new Dimension(50,50), new Point(100,100));
-		
-		this.playerX = (int) tagMan.getPoint().getX();
-		this.playerY = (int) tagMan.getPoint().getY();
-		this.playerWidth = (int) tagMan.getDimension().getWidth();
-		this.playerHeight = (int) tagMan.getDimension().getHeight();
-		
+
 		this.firstCircle = Color.RED;
 		this.secondCircle = Color.ORANGE;
 		this.thirdCircle = Color.YELLOW;
-		
+
 		this.addKeyListener(this);
 		this.setFocusable(true);
 		this.requestFocus();
@@ -55,10 +51,10 @@ public class PlayView extends JPanel implements Observer, KeyListener {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
 
-		String welcomeText = "Welcome to TagMan";
+		String welcomeText = "Welcome to TagMan";	
 		String introText = "move with arrows or numpad";
 		String instructionText = "press S to start";
-		
+
 		// Introduction Text
 		if (!startPressed) {
 			// draws center of component
@@ -67,11 +63,15 @@ public class PlayView extends JPanel implements Observer, KeyListener {
 			g2.drawLine(0, getHeight() / 2, getWidth(), getHeight() / 2);
 			// Draw text
 			g2.setColor(Color.YELLOW);
-			this.drawCenteredString(g2, welcomeText, new Rectangle(new Dimension(getWidth(), getHeight() - 200)), new Font("Helvetica", Font.PLAIN, 32));
-			this.drawCenteredString(g2, introText, new Rectangle(new Dimension(getWidth(), getHeight() - 100)), new Font("Helvetica", Font.PLAIN, 32));
+			this.drawCenteredString(g2, welcomeText, new Rectangle(new Dimension(getWidth(), getHeight() - 200)),
+					new Font("Helvetica", Font.PLAIN, 32));
+			this.drawCenteredString(g2, introText, new Rectangle(new Dimension(getWidth(), getHeight() - 100)),
+					new Font("Helvetica", Font.PLAIN, 32));
 			// TODO: LEVEL + VARIABLE
-			this.drawCenteredString(g2, instructionText, new Rectangle(new Dimension(getWidth(), getHeight() + 100)), new Font("Helvetica", Font.PLAIN, 32));
-		} 
+			this.drawCenteredString(g2, instructionText, new Rectangle(new Dimension(getWidth(), getHeight() + 100)),
+					new Font("Helvetica", Font.PLAIN, 32));
+		}
+		
 		// TODO: DRAW TAGMAN
 		g2.setColor(firstCircle);
 		g2.fillOval(playerX, playerY, playerWidth, playerHeight);
@@ -88,29 +88,18 @@ public class PlayView extends JPanel implements Observer, KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		
-			switch (e.getKeyCode()) {
-			case KeyEvent.VK_S:
-			if (!startPressed) {
+		int event = e.getKeyChar(); 
+		mainController.move(event);
+		switch (e.getKeyCode()) {
+
+		case KeyEvent.VK_S:
+			if (event == startChar && !startPressed) {
 				mainController.startAllThreads();
 				startPressed = true;
-			}
-				break;
-			case KeyEvent.VK_RIGHT:
-				System.out.println("right");
-				tagMan.moveForwards(playerX);
-				
-				break;
-			case KeyEvent.VK_UP:
-				tagMan.moveUpwards(playerY);
-				System.out.println("up");				
-				break;
-			case KeyEvent.VK_DOWN:
-				tagMan.moveDownwards(playerY);
-				System.out.println("down");
 				break;
 			}
-		
+		}
+
 	}
 
 	@Override

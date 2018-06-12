@@ -7,30 +7,32 @@ public class TagMan extends GameObject {
 	private Dimension dimension;
 	private Point point;
 	private int velocity;
-	private int x;
-	private int y;
+	private int xPos;
+	private int yPos;
 	
 	public TagMan(Dimension dimension, Point point) {
 		super(dimension, point);
 		this.dimension = dimension;
 		this.point = point;	
 		
-		this.x = (int) point.getX();
-		this.y = (int) point.getY();
+		this.xPos = (int) point.getX();
+		this.yPos = (int) point.getY();
 		
 		this.velocity = 10;
 	}
 
+	
+	
 	public void moveForwards(int x) {
-		point.setLocation(x + velocity, y);
+		point.setLocation(x + velocity, yPos);
 	}
 
 	public void moveUpwards(int y) {
-		point.setLocation(x, y + velocity);
+		point.setLocation(xPos, y + velocity);
 	}
 
 	public void moveDownwards(int y) {
-		point.setLocation(x, y - velocity);
+		point.setLocation(xPos, y - velocity);
 	}
 
 	public Dimension getDimension() {

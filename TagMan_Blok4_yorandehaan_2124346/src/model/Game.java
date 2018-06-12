@@ -8,6 +8,8 @@ import java.util.Random;
 
 public class Game extends Observable {
 	private ArrayList<Dash> dashes;
+	private ArrayList<Wall> walls;
+	private TagMan tagMan;
 	private int amountOfDashes;
 	private static final int MAX_TIME = 30;
 	private int level;
@@ -17,8 +19,15 @@ public class Game extends Observable {
 	private boolean crashed;
 
 	public Game() {
+		tagMan = new TagMan(new Dimension(50, 50), new Point(10, (756 /2) -25));
+		dashes = new ArrayList<>();
+		walls = new ArrayList<>();
 		timerAmount = 30;
 		amountOfDashes = 10;
+		
+		addDashes();
+		addWalls();
+		
 	}
 
 	public void addDashes() {
@@ -29,8 +38,19 @@ public class Game extends Observable {
 			spaceBetweenDashes++;
 		}
 	}
-
+	
+	public void addWalls() {
+		for (int i = 0; i < amountOfDashes; i++) {
+			Wall wall1 = new Wall(new Dimension(50, 300), new Point(0, 0));
+			walls.add(wall1);
+		}
+	}
+	
 	// Getters and Setters
+	public TagMan getTagMan() {
+		return tagMan;
+	}
+	
 	public int getLevel() {
 		return level;
 	}

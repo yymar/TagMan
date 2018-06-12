@@ -23,7 +23,6 @@ public class MainFrame extends JFrame implements Runnable {
 		this.setContentPane(contentPane);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setPreferredSize(new Dimension(1300, 800));
 		this.pack();
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
