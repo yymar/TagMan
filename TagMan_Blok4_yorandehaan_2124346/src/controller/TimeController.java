@@ -20,11 +20,11 @@ public class TimeController extends Observable implements Runnable {
 			try {
 				if (!mainController.getGame().getSucces()) {
 					if (!mainController.getGame().getCrashed()) {
-						Thread.sleep(1000);
-						mainController.updateTimerAmount(1);
 						if (mainController.getTimeAmount() <= 0) {
 							isRunning = false;
 						}
+						Thread.sleep(1000);
+						mainController.updateTimerAmount(1);
 					}
 				}
 				this.setChanged();

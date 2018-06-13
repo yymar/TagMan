@@ -67,6 +67,7 @@ public class Game extends Observable implements Runnable {
 		for (GameObject object : getDashes()) {
 			if (object.willCollide(tagMan, x, y)) {
 				setCrashed(true);
+				setScore(timerAmount);
 				return false;
 			}
 		}

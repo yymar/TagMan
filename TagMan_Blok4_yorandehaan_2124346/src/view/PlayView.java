@@ -42,6 +42,7 @@ public class PlayView extends JPanel implements Observer {
 		String tagManHitText = "TAGMAN IS HIT";
 		String gameOver = "GAMEOVER";
 		String yourScore = "Your score: " + mainController.getGame().getScore();
+		String exitString  = "hit ESC to exit";
 		// Introduction Text
 		// draws center of component
 		if (!mainController.getGame().getStartPressed()) {
@@ -54,12 +55,15 @@ public class PlayView extends JPanel implements Observer {
 			this.drawCenteredString(g, introText, new Rectangle(new Dimension(getWidth(), getHeight() - 100)), new Font("Helvetica", Font.PLAIN, 32));
 			this.drawCenteredString(g, levelText , new Rectangle(new Dimension(getWidth(), getHeight())), new Font("Helvetica", Font.PLAIN, 32));
 			this.drawCenteredString(g, instructionText, new Rectangle(new Dimension(getWidth(), getHeight() + 100)), new Font("Helvetica", Font.PLAIN, 32));
-			
-			if(mainController.getGame().getCrashed()) {
-				this.drawCenteredString(g, tagManHitText, new Rectangle(new Dimension(getWidth(), getHeight()  -200)), new Font("Helvetica", Font.PLAIN, 32));
-				this.drawCenteredString(g, gameOver, new Rectangle(new Dimension(getWidth(), getHeight() - 100)), new Font("Helvetica", Font.PLAIN, 32));
-				this.drawCenteredString(g, gameOver, new Rectangle(new Dimension(getWidth(), getHeight() - 100)), new Font("Helvetica", Font.PLAIN, 32));
-			}
+		}
+		
+		//Crash text
+		if (mainController.getGame().getCrashed()) {
+			g.setColor(Color.YELLOW);
+			this.drawCenteredString(g, tagManHitText, new Rectangle(new Dimension(getWidth(), getHeight()  -200)), new Font("Helvetica", Font.PLAIN, 32));
+			this.drawCenteredString(g, gameOver, new Rectangle(new Dimension(getWidth(), getHeight() - 100)), new Font("Helvetica", Font.PLAIN, 32));
+			this.drawCenteredString(g, yourScore, new Rectangle(new Dimension(getWidth(), getHeight())), new Font("Helvetica", Font.PLAIN, 32));
+			this.drawCenteredString(g, exitString, new Rectangle(new Dimension(getWidth(), getHeight() + 100)), new Font("Helvetica", Font.PLAIN, 32));
 		}
 		
 		tagManPainterPlain.paint(g, mainController.getGame().getTagMan());
