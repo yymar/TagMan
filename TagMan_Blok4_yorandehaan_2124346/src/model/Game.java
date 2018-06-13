@@ -7,10 +7,13 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Random;
 
+import org.omg.CosNaming.IstringHelper;
+
 public class Game extends Observable implements Runnable {
 	private ArrayList<Dash> dashes;
 	private ArrayList<Wall> walls;
 	private TagMan tagMan;
+	private boolean isRunning;
 	private static final int AMOUNT_OF_DASHES = 10;
 	private static final int MAX_TIME = 30;
 	private int level;
@@ -21,21 +24,12 @@ public class Game extends Observable implements Runnable {
 	private boolean crashed;
 
 	public Game() {
-		tagMan = new TagMan(new Dimension(50, 50), new Point(5, 375));
-		dashes = new ArrayList<>();
-		walls = new ArrayList<>();
-		level = 1;
-		score = 0;
-		timerAmount = 30;
-		startPressed = false;
-		
-		createDashes();
-		createWalls();
+		loadLevel();
 	}
 	
 	public void loadLevel() {
 		level = level + 1;
-		score = score + getTimerAmount();
+		score = getTimerAmount() + score;
 		
 		startPressed = false;
 		succes = false;
@@ -45,6 +39,9 @@ public class Game extends Observable implements Runnable {
 		tagMan = new TagMan(new Dimension(50, 50), new Point(5, 375));
 		dashes = new ArrayList<>();
 		walls = new ArrayList<>();
+		
+		createDashes();
+		createWalls();
 	}
 
 	public void createDashes() {
@@ -75,9 +72,9 @@ public class Game extends Observable implements Runnable {
 		walls.add(defaultWallBottomRight);
 		
 		if (level == 2) {
-			int wallObstacleWidth = defaultWallWidth / 2;
-			int wallObstacleHeigth = defaultWallHeight / 4;
-			Wall wallObstacle = new Wall(new Dimension(defaultWallWidth, wallObstacleHeigth), new Point(600 - (wallObstacleWidth  / 2), 400 - (defaultWallHeight)));	
+			int wallObstacleWidth = 50;
+			int wallObstacleHeigth = defaultWallHeight / 2;
+			Wall wallObstacle = new Wall(new Dimension(25, wallObstacleHeigth), new Point(250 - (wallObstacleWidth  / 2), defaultWallHeight));	
 			walls.add(wallObstacle);
 		}
 	}
@@ -95,10 +92,6 @@ public class Game extends Observable implements Runnable {
 	public void update() {
 		this.setChanged();
 		this.notifyObservers();
-	}
-	
-	public void nextLevel() {
-		loadLevel();
 	}
 	
 	// Getters and Setters
@@ -176,29 +169,38 @@ public class Game extends Observable implements Runnable {
 		this.timerAmount = i;
 	}
 
+	public void startGameThread() {
+		isRunning = true;
+	}
+
 	@Override
 	public void run() {
-		while (startPressed) {
-			try {
-				if (!getSucces()) {
-					if (!getCrashed()) {
-						Thread.sleep(1000 / 60);
-						for (Dash dash : dashes) {
-							if (!dash.getIsMoving()) {
-								dash.setIsMoving();
-							}
-							if (dash.getIsMoving()) {
-								if (collidesWithDash(0, dash.getSpeed())) {
-									dash.moveDownwards();
+		System.out.println("start run method");
+		try {
+			while (isRunning) {
+				if (getStartPressed()) {
+					if (!getSucces()) {
+						if (!getCrashed()) {
+							Thread.sleep(1000 / 60);
+							for (Dash dash : dashes) {
+								if (!dash.getIsMoving()) {
+									dash.setIsMoving();
+								}
+								if (dash.getIsMoving()) {
+									if (collidesWithDash(0, dash.getSpeed())) {
+										dash.moveDownwards();
+									}
 								}
 							}
 						}
 					}
 				}
-			} catch (InterruptedException e) {
-				Thread.currentThread().interrupt();
 			}
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
 		}
 	}
-
 }
+	
+
+

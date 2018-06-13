@@ -15,13 +15,14 @@ public class MainController {
 	private MainFrame mainFrame;
 	private Thread gameThread;
 	private Thread timeControllerThread;
+	private boolean threadsRunning;	
 	
 	public MainController() {
 		this.game = new Game();
 		this.timeController = new TimeController(this);
 		this.mainFrame = new MainFrame(this, game);
+		this.threadsRunning = false;
 		
-		this.gameThread = new Thread(game);
 		this.timeControllerThread = new Thread(timeController);
 		
 		game.update();
@@ -149,15 +150,25 @@ public class MainController {
         mainFrame.getTimeView().resetTimer();
         game.update();
     }
+	
+	public void startGameThread() {
+		this.gameThread = new Thread(game);
+		gameThread.start();
+		game.startGameThread();
+	}
+	public void startTimerThread() {
+		this.gameThread = new Thread(game);
+		gameThread.start();
+		game.startGameThread();
+	}
 
 	public void startAllThreads() {
 		// Prevents Threads from starting multiple times.
-		if (!game.getStartPressed()) {
+		if (!game.getStartPressed() && !threadsRunning) {
 			timeControllerThread.start();
 			timeController.startTimer();
-			game.setStartPressed(true);
-			gameThread.start();
-		}
+			threadsRunning = true;
+		} 
 	}
 
 	public void stop() {

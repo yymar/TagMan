@@ -44,6 +44,10 @@ public class PlayView extends JPanel implements Observer {
 		String gameOver = "GAMEOVER";
 		String yourScore = "Your score: " + mainController.getGame().getScore();
 		String exitString = "hit ESC to exit";
+		//Finished text
+		String finished = "fimished";
+		String yourScoreFinish = "your score: " + mainController.getGame().getScore();
+		String continueGame = "hit L to continue";
 		// draws center of component
 		if (!mainController.getGame().getStartPressed()) {
 			// Draw text
@@ -53,6 +57,7 @@ public class PlayView extends JPanel implements Observer {
 				this.drawCenteredString(g, welcomeText, new Rectangle(new Dimension(getWidth(), getHeight() - 200)),
 						new Font("Helvetica", Font.PLAIN, 32));
 			}
+			
 			this.drawCenteredString(g, introText, new Rectangle(new Dimension(getWidth(), getHeight() - 100)), new Font("Helvetica", Font.PLAIN, 32));
 			this.drawCenteredString(g, levelText , new Rectangle(new Dimension(getWidth(), getHeight())), new Font("Helvetica", Font.PLAIN, 32));
 			this.drawCenteredString(g, instructionText, new Rectangle(new Dimension(getWidth(), getHeight() + 100)), new Font("Helvetica", Font.PLAIN, 32));
@@ -65,6 +70,14 @@ public class PlayView extends JPanel implements Observer {
 			this.drawCenteredString(g, gameOver, new Rectangle(new Dimension(getWidth(), getHeight() - 100)), new Font("Helvetica", Font.PLAIN, 32));
 			this.drawCenteredString(g, yourScore, new Rectangle(new Dimension(getWidth(), getHeight())), new Font("Helvetica", Font.PLAIN, 32));
 			this.drawCenteredString(g, exitString, new Rectangle(new Dimension(getWidth(), getHeight() + 100)), new Font("Helvetica", Font.PLAIN, 32));
+		}
+		
+		//Finished text
+		if(mainController.getGame().getSucces()) {
+			g.setColor(Color.YELLOW);
+			this.drawCenteredString(g, finished, new Rectangle(new Dimension(getWidth(), getHeight()  - 200)), new Font("Helvetica", Font.PLAIN, 32));
+			this.drawCenteredString(g, yourScoreFinish, new Rectangle(new Dimension(getWidth(), getHeight()  - 100)), new Font("Helvetica", Font.PLAIN, 32));
+			this.drawCenteredString(g, continueGame, new Rectangle(new Dimension(getWidth(), getHeight()  + 100)), new Font("Helvetica", Font.PLAIN, 32));
 		}
 		
 		tagManPainterPlain.paint(g, mainController.getGame().getTagMan());
