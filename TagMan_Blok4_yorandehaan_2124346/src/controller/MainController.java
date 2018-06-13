@@ -57,7 +57,8 @@ public class MainController {
 		Color secondCircleColorFinish = new Color(0, 255, 128);
 		Color thirdCircleColorFinish = new Color(170, 255, 170);
 		
-		Rectangle finish = new Rectangle(935, 0, 365, 800);
+		Rectangle finish = new Rectangle(1180, 0, 365, 800);
+		
 		if (tagManHitBox.intersects(finish)) {
 			tagMan.setFirstCircle(firstCircleColorFinish);
 			tagMan.setSecondCircle(secondCircleColorFinish);

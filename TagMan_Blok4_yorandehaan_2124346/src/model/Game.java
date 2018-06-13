@@ -69,8 +69,13 @@ public class Game extends Observable implements Runnable {
 		while (startPressed) {
 			try {
 				Thread.sleep(1000 / 60);
-				for (int i = 0; i < dashes.size(); i++) {
-					dashes.get(i).moveDownwards();
+				for (Dash dash : dashes) {
+					if (!dash.getIsMoving()) {
+						dash.setIsMoving();
+					}
+					if(dash.getIsMoving()) {
+						dash.moveDownwards();
+					}
 				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();

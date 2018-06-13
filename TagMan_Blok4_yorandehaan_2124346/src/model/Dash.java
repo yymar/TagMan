@@ -14,6 +14,7 @@ public class Dash extends GameObject {
 	private int xPos;
 	private int yPos;
 	private int speed;
+	private boolean isMoving;
 
 	public Dash(Dimension dimension, Point point) {
 		super(dimension, point);
@@ -21,18 +22,29 @@ public class Dash extends GameObject {
 		this.point = point;
 		this.random = new Random();
 
-		this.speed = random.nextInt(6) + 1;
+		this.speed = random.nextInt(5) + 1;
 
-		this.xPos = (int) point.getX();
-		this.yPos = (int) point.getY();
+		this.xPos = getX();
+		this.yPos = getY();
 		this.dashColour = Color.RED;
 	}
 
-	public void moveDownwards() {
-			point.setLocation(xPos, yPos - speed);
-			yPos = yPos + speed;
+	public void setIsMoving() {
+		int chanceOfDrop = random.nextInt(30);
+		if (chanceOfDrop == 1) {
+			this.isMoving = true;
+		}
 	}
 
+	public void moveDownwards() {
+		point.setLocation(xPos, yPos + speed);
+		yPos = yPos + speed;
+	}
+	
+	public boolean getIsMoving() {
+		return isMoving;
+	}
+	
 	public Color getDashColor() {
 		return dashColour;
 	}
