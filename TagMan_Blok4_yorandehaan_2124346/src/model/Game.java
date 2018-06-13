@@ -21,22 +21,30 @@ public class Game extends Observable implements Runnable {
 	private boolean crashed;
 
 	public Game() {
-		level = 1;
-		
-		loadNextLevel();
-		createDashes();
-		createWalls();
-	}
-	public void loadNextLevel() {
 		tagMan = new TagMan(new Dimension(50, 50), new Point(5, 375));
 		dashes = new ArrayList<>();
 		walls = new ArrayList<>();
-		level = level + 1;
+		level = 1;
 		score = 0;
 		timerAmount = 30;
 		startPressed = false;
+		
+		createDashes();
+		createWalls();
+	}
+	
+	public void loadLevel() {
+		level = level + 1;
+		score = score + getTimerAmount();
+		
+		startPressed = false;
 		succes = false;
 		crashed = false;
+		timerAmount = 30;
+		
+		tagMan = new TagMan(new Dimension(50, 50), new Point(5, 375));
+		dashes = new ArrayList<>();
+		walls = new ArrayList<>();
 	}
 
 	public void createDashes() {
@@ -66,7 +74,7 @@ public class Game extends Observable implements Runnable {
 		walls.add(defaultWallBottomLeft);
 		walls.add(defaultWallBottomRight);
 		
-		if(level == 2) {
+		if (level == 2) {
 			int wallObstacleWidth = defaultWallWidth / 2;
 			int wallObstacleHeigth = defaultWallHeight / 4;
 			Wall wallObstacle = new Wall(new Dimension(defaultWallWidth, wallObstacleHeigth), new Point(600 - (wallObstacleWidth  / 2), 400 - (defaultWallHeight)));	
@@ -78,7 +86,6 @@ public class Game extends Observable implements Runnable {
 		for (GameObject object : getDashes()) {
 			if (object.willCollide(tagMan, x, y)) {
 				setCrashed(true);
-				setScore(timerAmount);
 				return false;
 			}
 		}
@@ -90,9 +97,8 @@ public class Game extends Observable implements Runnable {
 		this.notifyObservers();
 	}
 	
-	
 	public void nextLevel() {
-		
+		loadLevel();
 	}
 	
 	// Getters and Setters
@@ -187,7 +193,8 @@ public class Game extends Observable implements Runnable {
 								}
 							}
 						}
-				}}
+					}
+				}
 			} catch (InterruptedException e) {
 				Thread.currentThread().interrupt();
 			}
