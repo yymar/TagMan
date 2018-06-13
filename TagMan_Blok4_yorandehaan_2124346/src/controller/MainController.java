@@ -15,12 +15,17 @@ public class MainController {
 	private TimeController timeController;
 	private Game game;
 	private MainFrame mainFrame;
-
+	private Thread gameThread;
+	private Thread timeControllerThread;
+	
 	public MainController() {
 		this.game = new Game();
 		this.timeController = new TimeController(this);
 		this.mainFrame = new MainFrame(this, game);
-
+		
+		this.gameThread = new Thread(game);
+		this.timeControllerThread = new Thread(timeController);
+		
 		game.update();
 		timeController.addObserver(mainFrame.getTimeView());
 		mainFrame.initializeFrame();
@@ -28,6 +33,7 @@ public class MainController {
 
 	public void move(KeyEvent e) {
 		int keyPressed = e.getKeyCode();
+		TagMan tagMan = game.getTagMan();
 		int tagManXpos = (int) game.getTagMan().getPoint().getX();
 		int tagManYpos = (int) game.getTagMan().getPoint().getY();
 		int tagManWidth = (int) game.getTagMan().getDimension().getWidth();
@@ -36,38 +42,47 @@ public class MainController {
 
 		if (game.getStartPressed()) {
 			if (keyPressed == e.VK_RIGHT && tagManXpos <= getWidth - tagManWidth - (tagManWidth / 4)) {
-				collidesWithDashes(tagManXpos, tagManYpos);
-				collidesWithWalls(tagManXpos, tagManYpos);
-				game.getTagMan().moveForwards();
-				checkFinished();
-			}
-			
-			if (keyPressed == e.VK_DOWN && tagManYpos <= 800 - tagManHeigth - (tagManWidth / 4)) {
-				if (!collidesWithWalls(0, game.getTagMan().getVelocity())) {
-					game.getTagMan().moveDownwards();
-					checkFinished();
+				if (!collidesWithWalls(tagMan.getVelocity(), 0)) {
+					if (!collidesWithDashes(tagMan.getVelocity(), 0)) {
+						tagMan.moveForwards();
+						checkFinished();
+					}
 				}
 			}
-			
+
+			if (keyPressed == e.VK_DOWN && tagManYpos <= 800 - tagManHeigth - (tagManWidth / 4)) {
+				if (!collidesWithWalls(0, tagMan.getVelocity())) {
+					if (!collidesWithDashes(0, tagMan.getVelocity())) {
+						tagMan.moveDownwards();
+						checkFinished();
+					}
+				}
+			}
+
 			if (keyPressed == e.VK_UP && tagManYpos >= 0 + (tagManHeigth / 4)) {
-				collidesWithDashes(tagManXpos, tagManYpos);
-				collidesWithWalls(tagManXpos, tagManYpos);
-				game.getTagMan().moveUpwards();
-				checkFinished();
+				if (!collidesWithWalls(0, tagMan.getVelocity() * -1)) {
+					if (!collidesWithDashes(0, tagMan.getVelocity() * -1)) {
+						tagMan.moveUpwards();
+						checkFinished();
+					}
+				}
 			}
 
 			if (keyPressed == KeyEvent.VK_NUMPAD3 && tagManXpos <= getWidth - tagManWidth - (tagManWidth / 4)  && tagManYpos <= 800 - tagManHeigth - (tagManWidth / 4)) {
-				collidesWithDashes(tagManXpos, tagManYpos);
-				collidesWithWalls(tagManXpos, tagManYpos);
-				game.getTagMan().moveHorizontalyDownwards();
-				checkFinished();
+				if (!collidesWithWalls(tagMan.getDiagonalVelocity(), tagMan.getDiagonalVelocity())) {
+					if (!collidesWithWalls(tagMan.getDiagonalVelocity(), tagMan.getDiagonalVelocity())) {
+						tagMan.moveDiagonalyDownwards();
+						checkFinished();
+					}
+				}
 			}
 
 			if (keyPressed == KeyEvent.VK_NUMPAD9 && tagManXpos <= getWidth - tagManWidth - (tagManWidth / 4) && tagManYpos >= 0 + (tagManHeigth / 4)) {
-				collidesWithDashes(tagManXpos, tagManYpos);
-				collidesWithWalls(tagManXpos, tagManYpos);
-				game.getTagMan().moveHorizontalyUpwards();
-				checkFinished();
+				if (!collidesWithWalls(tagMan.getVelocity(), tagMan.getDiagonalVelocity() * -1)) {
+					if (!collidesWithDashes(tagMan.getVelocity(), tagMan.getDiagonalVelocity() * -1))
+						tagMan.moveDiogonalyUpwards();
+					checkFinished();
+				}
 			}
 		}
 	}
@@ -78,13 +93,15 @@ public class MainController {
 				return true;
 			}
 		}
-		System.out.println("WALL");
 		return false;
 	}
 
 	public boolean collidesWithDashes(int x, int y) {
 		for (GameObject object : game.getDashes()) {
 			if (game.getTagMan().willCollide(object, x, y)) {
+				System.out.println(game.getCrashed());
+				game.setCrashed(true);
+				stop();
 				return true;
 			}
 		}
@@ -127,13 +144,20 @@ public class MainController {
 	public void startAllThreads() {
 		// Prevents Threads from starting multiple times.
 		if (!game.getStartPressed()) {
-			new Thread(timeController).start();
+			timeControllerThread.start();
 			timeController.startTimer();
 			game.setStartPressed(true);
-			new Thread(game).start();
+			gameThread.start();
 		}
 	}
-	
+
+	public void stop() {
+		if (game.getCrashed()) {
+			timeControllerThread.interrupt();
+			gameThread.interrupt();
+		}
+	}
+
 	public Game getGame() {
 		return game;
 	}

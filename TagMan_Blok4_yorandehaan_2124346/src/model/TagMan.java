@@ -33,8 +33,6 @@ public class TagMan extends GameObject {
 		this.diagonalVelocity = (velocity / 3) * 2;
 	}
 
-	
-	
 	public void moveForwards() {
 		point.setLocation(xPos + velocity, yPos);
 		xPos = xPos + velocity;
@@ -50,13 +48,13 @@ public class TagMan extends GameObject {
 		yPos = yPos + velocity;
 	}
 	
-	public void moveHorizontalyDownwards() {
+	public void moveDiagonalyDownwards() {
 		point.setLocation(xPos + diagonalVelocity, yPos + diagonalVelocity);
 		xPos = xPos + diagonalVelocity;
 		yPos = yPos + diagonalVelocity;
 	}
 	
-	public void moveHorizontalyUpwards() {
+	public void moveDiogonalyUpwards() {
 		point.setLocation(xPos + diagonalVelocity, yPos - diagonalVelocity);
 		xPos = xPos + diagonalVelocity;
 		yPos = yPos - diagonalVelocity;
@@ -108,6 +106,10 @@ public class TagMan extends GameObject {
 
 	public void setVelocity(int velocity) {
 		this.velocity = velocity;
+	}
+	
+	public int getDiagonalVelocity() {
+		return diagonalVelocity;
 	}
 	
 	public Rectangle getBounds() { 

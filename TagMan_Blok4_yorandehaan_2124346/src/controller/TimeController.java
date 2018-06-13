@@ -13,7 +13,7 @@ public class TimeController extends Observable implements Runnable {
 	public void startTimer() {
 		isRunning = true;
 	}
-	
+
 	public void resetTimer() {
 
 	}
@@ -30,7 +30,7 @@ public class TimeController extends Observable implements Runnable {
 				this.setChanged();
 				this.notifyObservers(mainController.getTimeAmount());
 			} catch (InterruptedException e) {
-				e.printStackTrace();
+				Thread.currentThread().interrupt();
 			}
 		}
 	}
