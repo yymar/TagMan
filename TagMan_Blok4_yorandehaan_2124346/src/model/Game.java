@@ -62,32 +62,22 @@ public class Game extends Observable implements Runnable {
 		walls.add(wall3);
 		walls.add(wall4);
 	}
+	
+	public boolean collidesWithDash(int x, int y) {
+		for (GameObject object : getDashes()) {
+			if (object.willCollide(tagMan, x, y)) {
+				setCrashed(true);
+				return false;
+			}
+		}
+		return true;
+	}
 
 	public void update() {
 		this.setChanged();
 		this.notifyObservers();
 	}
 	
-	public void moveDashes() {
-		while (startPressed) {
-			try {
-				if (!getSucces()) {
-					Thread.sleep(1000 / 60);
-					for (Dash dash : dashes) {
-						if (!dash.getIsMoving()) {
-							dash.setIsMoving();
-						}
-						if (dash.getIsMoving()) {
-							dash.moveDownwards();
-						}
-					}
-				}
-			} catch (InterruptedException e) {
-				Thread.currentThread().interrupt();
-			}
-		}
-	}
-
 	// Getters and Setters
 	public TagMan getTagMan() {
 		return tagMan;
@@ -158,13 +148,33 @@ public class Game extends Observable implements Runnable {
 		update();
 	}
 	
-	@Override
-	public void run() {
-		moveDashes();
-	}
 
 	public void resetTimer(int i) {
 		this.timerAmount = i;
+	}
+
+	@Override
+	public void run() {
+		while (startPressed) {
+			try {
+				if (!getSucces()) {
+					if (!getCrashed()) {
+						Thread.sleep(1000 / 60);
+						for (Dash dash : dashes) {
+							if (!dash.getIsMoving()) {
+								dash.setIsMoving();
+							}
+							if (dash.getIsMoving()) {
+								if (collidesWithDash(0, dash.getSpeed())) {
+									dash.moveDownwards();
+								}
+							}
+						}
+				}}
+			} catch (InterruptedException e) {
+				Thread.currentThread().interrupt();
+			}
+		}
 	}
 
 }

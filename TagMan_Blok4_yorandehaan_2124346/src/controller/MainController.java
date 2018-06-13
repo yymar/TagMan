@@ -39,47 +39,49 @@ public class MainController {
 		int getWidth = mainFrame.getContentPane().getPlayView().getWidth();
 
 		if (game.getStartPressed()) {
-			if (keyPressed == e.VK_RIGHT && tagManXpos <= getWidth - tagManWidth - (tagManWidth / 4)) {
-				if (!collidesWithWalls(tagMan.getVelocity(), 0)) {
-					if (!collidesWithDashes(tagMan.getVelocity(), 0)) {
-						tagMan.moveForwards();
-						checkFinished();
+			if (!game.getSucces()) {
+				if (keyPressed == e.VK_RIGHT && tagManXpos <= getWidth - tagManWidth - (tagManWidth / 4)) {
+					if (!collidesWithWalls(tagMan.getVelocity(), 0)) {
+						if (!collidesWithDashes(tagMan.getVelocity(), 0)) {
+							tagMan.moveForwards();
+							checkFinished();
+						}
 					}
 				}
-			}
 
-			if (keyPressed == e.VK_DOWN && tagManYpos <= 800 - tagManHeigth - (tagManWidth / 4)) {
-				if (!collidesWithWalls(0, tagMan.getVelocity())) {
-					if (!collidesWithDashes(0, tagMan.getVelocity())) {
-						tagMan.moveDownwards();
-						checkFinished();
+				if (keyPressed == e.VK_DOWN && tagManYpos <= 800 - tagManHeigth - (tagManWidth / 4)) {
+					if (!collidesWithWalls(0, tagMan.getVelocity())) {
+						if (!collidesWithDashes(0, tagMan.getVelocity())) {
+							tagMan.moveDownwards();
+							checkFinished();
+						}
 					}
 				}
-			}
 
-			if (keyPressed == e.VK_UP && tagManYpos >= 0 + (tagManHeigth / 4)) {
-				if (!collidesWithWalls(0, tagMan.getVelocity() * -1)) {
-					if (!collidesWithDashes(0, tagMan.getVelocity() * -1)) {
-						tagMan.moveUpwards();
-						checkFinished();
+				if (keyPressed == e.VK_UP && tagManYpos >= 0 + (tagManHeigth / 4)) {
+					if (!collidesWithWalls(0, tagMan.getVelocity() * -1)) {
+						if (!collidesWithDashes(0, tagMan.getVelocity() * -1)) {
+							tagMan.moveUpwards();
+							checkFinished();
+						}
 					}
 				}
-			}
 
-			if (keyPressed == KeyEvent.VK_NUMPAD3 && tagManXpos <= getWidth - tagManWidth - (tagManWidth / 4)  && tagManYpos <= 800 - tagManHeigth - (tagManWidth / 4)) {
-				if (!collidesWithWalls(tagMan.getDiagonalVelocity(), tagMan.getDiagonalVelocity())) {
+				if (keyPressed == KeyEvent.VK_NUMPAD3 && tagManXpos <= getWidth - tagManWidth - (tagManWidth / 4)  && tagManYpos <= 800 - tagManHeigth - (tagManWidth / 4)) {
 					if (!collidesWithWalls(tagMan.getDiagonalVelocity(), tagMan.getDiagonalVelocity())) {
-						tagMan.moveDiagonalyDownwards();
-						checkFinished();
+						if (!collidesWithWalls(tagMan.getDiagonalVelocity(), tagMan.getDiagonalVelocity())) {
+							tagMan.moveDiagonalyDownwards();
+							checkFinished();
+						}
 					}
 				}
-			}
 
-			if (keyPressed == KeyEvent.VK_NUMPAD9 && tagManXpos <= getWidth - tagManWidth - (tagManWidth / 4) && tagManYpos >= 0 + (tagManHeigth / 4)) {
-				if (!collidesWithWalls(tagMan.getVelocity(), tagMan.getDiagonalVelocity() * -1)) {
-					if (!collidesWithDashes(tagMan.getVelocity(), tagMan.getDiagonalVelocity() * -1))
-						tagMan.moveDiogonalyUpwards();
-					checkFinished();
+				if (keyPressed == KeyEvent.VK_NUMPAD9 && tagManXpos <= getWidth - tagManWidth - (tagManWidth / 4) && tagManYpos >= 0 + (tagManHeigth / 4)) {
+					if (!collidesWithWalls(tagMan.getVelocity(), tagMan.getDiagonalVelocity() * -1)) {
+						if (!collidesWithDashes(tagMan.getVelocity(), tagMan.getDiagonalVelocity() * -1))
+							tagMan.moveDiogonalyUpwards();
+						checkFinished();
+					}
 				}
 			}
 		}
@@ -114,30 +116,24 @@ public class MainController {
 		Color thirdCircleColorFinish = new Color(170, 255, 170);
 		
 		Rectangle finish = new Rectangle(1180, 0, 365, 800);
-		
+
 		if (tagManHitBox.intersects(finish)) {
 			tagMan.setFirstCircle(firstCircleColorFinish);
 			tagMan.setSecondCircle(secondCircleColorFinish);
 			tagMan.setThirdCircle(thirdCircleColorFinish);
-			
-			resetTimer();
+
 			game.setSucces(true);
-			if (game.getSucces()) {
-				continueGame();
-			}
-			;
+			resetTimer();
 		}
+		
+		if (game.getSucces()) {
+			nextLevel();
+		}
+		
 	}
 	
 	public void systemExit() {
 		System.exit(0);
-	}
-	
-	public void nextLevel() {
-		int level = game.getLevel();
-		game.setLevel(level + 1);
-		game.setSucces(false);
-		System.out.println("L" + level);
 	}
 	
 	public void updateTimerAmount(int i) {
@@ -168,9 +164,10 @@ public class MainController {
 		}
 	}
 	
-	public void continueGame() {
+	public void nextLevel() {
 		if (game.getSucces()) {
-			nextLevel();
+			int level = game.getLevel();
+			game.setLevel(level + 1);
 		}
 	}
 

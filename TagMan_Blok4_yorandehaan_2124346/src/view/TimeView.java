@@ -65,38 +65,27 @@ public class TimeView extends JPanel implements Observer {
 		timerHeight = getHeight() - (getHeight() / 4);
 		interval = timerHeight / mainController.getMaxTime();
 		timerY = mainController.getTimeAmount() * interval;
-
 		if (mainController.getTimeAmount() > 15) {
-			g.setColor(getTimerColour());
+			g.setColor(Color.CYAN);
 			g.fillRect(middleOfPanelWidth, drawHeight, TIMERWIDTH, timerY);
 			g.setColor(Color.WHITE);
 			g.drawRect(middleOfPanelWidth, drawHeight, TIMERWIDTH, timerY);
 		}
 
-		if (mainController.getTimeAmount() <= 15) {
-			g.setColor(getTimerColour());
+		else if (mainController.getTimeAmount() <= 15) {
+			g.setColor(new Color(255, 200, 0));
 			g.fillRect(middleOfPanelWidth, drawHeight, TIMERWIDTH, timerY);
 			g.setColor(Color.WHITE);
 			g.drawRect(middleOfPanelWidth, drawHeight, TIMERWIDTH, timerY);
 		}
 
-		if (mainController.getTimeAmount() <= 7) {
-			g.setColor(getTimerColour());
+		else if (mainController.getTimeAmount() <= 7) {
+			g.setColor(Color.RED);
 			g.fillRect(middleOfPanelWidth, drawHeight, TIMERWIDTH, timerY);
 			g.setColor(Color.WHITE);
 			g.drawRect(middleOfPanelWidth, drawHeight, TIMERWIDTH, timerY);
 		}
 
-	}
-
-	public Color getTimerColour() {
-		if (mainController.getTimeAmount() <= 15) {
-			return new Color(255, 200, 0);
-		}
-		if (mainController.getTimeAmount() <= 7) {
-			return Color.RED;
-		}
-		return Color.CYAN;
 	}
 
 	public void resetTimer() {

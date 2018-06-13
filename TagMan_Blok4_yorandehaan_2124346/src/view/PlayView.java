@@ -39,6 +39,9 @@ public class PlayView extends JPanel implements Observer {
 		String levelText = "LEVEL " + mainController.getGame().getLevel();
 		String instructionText = "press S to start";
 		
+		String tagManHitText = "TAGMAN IS HIT";
+		String gameOver = "GAMEOVER";
+		String yourScore = "Your score: " + mainController.getGame().getScore();
 		// Introduction Text
 		// draws center of component
 		if (!mainController.getGame().getStartPressed()) {
@@ -51,6 +54,12 @@ public class PlayView extends JPanel implements Observer {
 			this.drawCenteredString(g, introText, new Rectangle(new Dimension(getWidth(), getHeight() - 100)), new Font("Helvetica", Font.PLAIN, 32));
 			this.drawCenteredString(g, levelText , new Rectangle(new Dimension(getWidth(), getHeight())), new Font("Helvetica", Font.PLAIN, 32));
 			this.drawCenteredString(g, instructionText, new Rectangle(new Dimension(getWidth(), getHeight() + 100)), new Font("Helvetica", Font.PLAIN, 32));
+			
+			if(mainController.getGame().getCrashed()) {
+				this.drawCenteredString(g, tagManHitText, new Rectangle(new Dimension(getWidth(), getHeight()  -200)), new Font("Helvetica", Font.PLAIN, 32));
+				this.drawCenteredString(g, gameOver, new Rectangle(new Dimension(getWidth(), getHeight() - 100)), new Font("Helvetica", Font.PLAIN, 32));
+				this.drawCenteredString(g, gameOver, new Rectangle(new Dimension(getWidth(), getHeight() - 100)), new Font("Helvetica", Font.PLAIN, 32));
+			}
 		}
 		
 		tagManPainterPlain.paint(g, mainController.getGame().getTagMan());

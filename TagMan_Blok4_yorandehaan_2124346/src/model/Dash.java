@@ -69,4 +69,8 @@ public class Dash extends GameObject {
 		return new Rectangle(getX(), getY(), getWidth(), getHeight());
 	}
 
+	public int getSpeed() {
+		return speed;
+	}
+
 }
