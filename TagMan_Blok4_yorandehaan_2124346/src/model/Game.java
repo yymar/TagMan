@@ -17,7 +17,7 @@ public class Game extends Observable implements Runnable {
 	private int score;
 	private int timerAmount;
 	private boolean startPressed;
-	private boolean finished;
+	private boolean succes;
 	private boolean crashed;
 
 	public Game() {
@@ -50,12 +50,9 @@ public class Game extends Observable implements Runnable {
 		int defaultWallHeight = 365;
 
 		Wall wall1 = new Wall(new Dimension(defaultWallWidth, defaultWallHeight), new Point(0, 0));
-		Wall wall2 = new Wall(new Dimension(defaultWallWidth, defaultWallHeight),
-				new Point(1200 - defaultWallWidth, 0));
-		Wall wall3 = new Wall(new Dimension(defaultWallWidth, defaultWallHeight),
-				new Point(0, 800 - defaultWallHeight));
-		Wall wall4 = new Wall(new Dimension(defaultWallWidth, defaultWallHeight),
-				new Point(1200 - defaultWallWidth, 800 - defaultWallHeight));
+		Wall wall2 = new Wall(new Dimension(defaultWallWidth, defaultWallHeight), new Point(1200 - defaultWallWidth, 0));
+		Wall wall3 = new Wall(new Dimension(defaultWallWidth, defaultWallHeight), new Point(0, 800 - defaultWallHeight));
+		Wall wall4 = new Wall(new Dimension(defaultWallWidth, defaultWallHeight), new Point(1200 - defaultWallWidth, 800 - defaultWallHeight));
 
 		walls.add(wall1);
 		walls.add(wall2);
@@ -134,6 +131,15 @@ public class Game extends Observable implements Runnable {
 		this.startPressed = startPressed;
 	}
 
+	public boolean getSucces() {
+		return succes;
+	}
+	
+	public void setSucces(boolean succes) {
+		this.succes = succes;
+		update();
+	}
+	
 	@Override
 	public void run() {
 		moveDashes();

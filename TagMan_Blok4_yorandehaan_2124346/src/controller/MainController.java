@@ -1,9 +1,12 @@
 package controller;
 
+import java.awt.Color;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 
 import model.Game;
+import model.TagMan;
 import view.MainFrame;
 
 public class MainController {
@@ -33,19 +36,36 @@ public class MainController {
 		if (game.getStartPressed()) {
 			if (keyPressed == e.VK_RIGHT && tagManXpos <= getWidth - tagManWidth - (tagManWidth / 4)) {
 				game.getTagMan().moveForwards();
+				checkFinished();
 			}
 			if (keyPressed == e.VK_DOWN && tagManYpos <= 800 - tagManHeigth - (tagManWidth / 4)) {
 				game.getTagMan().moveDownwards();
+				checkFinished();
 			}
 			if (keyPressed == e.VK_UP && tagManYpos >= 0 + (tagManHeigth / 4)) {
 				game.getTagMan().moveUpwards();
+				checkFinished();
 			}
 		}
 	}
-	
+
 	public void checkFinished() {
+		TagMan tagMan = game.getTagMan();
+		Rectangle tagManHitBox = game.getTagMan().getBounds();
+		
+		Color firstCircleColorFinish = new Color(0, 100, 50);
+		Color secondCircleColorFinish = new Color(0, 255, 128);
+		Color thirdCircleColorFinish = new Color(170, 255, 170);
+		
+		Rectangle finish = new Rectangle(935, 0, 365, 800);
+		if (tagManHitBox.intersects(finish)) {
+			tagMan.setFirstCircle(firstCircleColorFinish);
+			tagMan.setSecondCircle(secondCircleColorFinish);
+			tagMan.setThirdCircle(thirdCircleColorFinish);
+			game.setSucces(true);
+		}
 	}
-	
+
 	public void systemExit() {
 		System.exit(0);
 	}

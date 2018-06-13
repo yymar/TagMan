@@ -81,6 +81,18 @@ public class TagMan extends GameObject {
 		return thirdCircle;
 	}
 
+	public void setFirstCircle(Color firstCircle) {
+		this.firstCircle = firstCircle;
+	}
+
+	public void setSecondCircle(Color secondCircle) {
+		this.secondCircle = secondCircle;
+	}
+
+	public void setThirdCircle(Color thirdCircle) {
+		this.thirdCircle = thirdCircle;
+	}
+
 	public int getVelocity() {
 		return velocity;
 	}
@@ -89,7 +101,7 @@ public class TagMan extends GameObject {
 		this.velocity = velocity;
 	}
 	
-	public Rectangle getBounds() {
+	public Rectangle getBounds() { 
 		return new Rectangle((int) getPoint().getX(), (int) getPoint().getY(), (int) getDimension().getWidth(), (int) getDimension().getHeight());
 	}
 	
