@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import model.Dash;
 import model.Game;
+import model.GameObject;
 import model.TagMan;
 import view.MainFrame;
 
@@ -35,45 +36,46 @@ public class MainController {
 
 		if (game.getStartPressed()) {
 			if (keyPressed == e.VK_RIGHT && tagManXpos <= getWidth - tagManWidth - (tagManWidth / 4)) {
-				checkDashCollision();
 				game.getTagMan().moveForwards();
 				checkFinished();
 			}
 			if (keyPressed == e.VK_DOWN && tagManYpos <= 800 - tagManHeigth - (tagManWidth / 4)) {
-				checkDashCollision();
 				game.getTagMan().moveDownwards();
 				checkFinished();
 			}
 			if (keyPressed == e.VK_UP && tagManYpos >= 0 + (tagManHeigth / 4)) {
-				checkDashCollision();
 				game.getTagMan().moveUpwards();
 				checkFinished();
 			}
 
 			if (keyPressed == KeyEvent.VK_NUMPAD3 && tagManXpos <= getWidth - tagManWidth - (tagManWidth / 4)  && tagManYpos <= 800 - tagManHeigth - (tagManWidth / 4)) {
-				checkDashCollision();
 				game.getTagMan().moveHorizontalyDownwards();
 				checkFinished();
 			}
 
 			if (keyPressed == KeyEvent.VK_NUMPAD9 && tagManXpos <= getWidth - tagManWidth - (tagManWidth / 4) && tagManYpos >= 0 + (tagManHeigth / 4)) {
-				checkDashCollision();
 				game.getTagMan().moveHorizontalyUpwards();
 				checkFinished();
 			}
 		}
 	}
 
-	public void checkDashCollision() {
-		ArrayList<Dash> dashes = game.getDashes();
-		for (Dash dash : dashes) {
-			Rectangle dashHitbox = dash.getBounds();
-			Rectangle tagManHitBox = game.getTagMan().getBounds();
-			if (tagManHitBox.intersects(dashHitbox)) {
-				game.setCrashed(true);
-				System.out.println("COLLISION!");
+	public boolean collidesWithWalls(int x, int y) {
+		for (GameObject object : game.getWalls()) {
+			if (game.getTagMan().willCollide(object, x, y)) {
+				return true;
 			}
 		}
+		return false;
+	}
+
+	public boolean collidesWithDashes(int x, int y) {
+		for (GameObject object : game.getDashes()) {
+			if (game.getTagMan().willCollide(object, x, y)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public void checkFinished() {
