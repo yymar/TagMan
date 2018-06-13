@@ -25,8 +25,11 @@ public class Game extends Observable implements Runnable {
 		dashes = new ArrayList<>();
 		walls = new ArrayList<>();
 		level = 1;
-		startPressed = false;
+		score = 0;
 		timerAmount = 30;
+		startPressed = false;
+		succes = false;
+		crashed = false;
 
 		createDashes();
 		createWalls();
@@ -64,7 +67,7 @@ public class Game extends Observable implements Runnable {
 		this.setChanged();
 		this.notifyObservers();
 	}
-
+	
 	public void moveDashes() {
 		while (startPressed) {
 			try {
@@ -136,6 +139,14 @@ public class Game extends Observable implements Runnable {
 		this.startPressed = startPressed;
 	}
 
+	public boolean getCrashed() {
+		return crashed;
+	}
+
+	public void setCrashed(boolean crashed) {
+		this.crashed = crashed;
+	}
+	
 	public boolean getSucces() {
 		return succes;
 	}

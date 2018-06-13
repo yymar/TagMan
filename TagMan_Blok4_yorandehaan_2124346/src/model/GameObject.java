@@ -2,6 +2,8 @@ package model;
 
 import java.awt.Dimension;
 import java.awt.Point;
+import java.awt.Rectangle;
+import java.util.ArrayList;
 
 public abstract class GameObject {
 	private Dimension dimension;
@@ -10,6 +12,13 @@ public abstract class GameObject {
 	public GameObject(Dimension dimension, Point point) {
 		this.dimension = dimension;
 		this.point = point;
+	}
+
+	public boolean willCollide(GameObject object, int x, int y) {
+		Rectangle playerRectangle = new Rectangle(this.getX(), this.getY(), this.getWidth(), this.getHeight());
+		playerRectangle.translate(x, y);
+		Rectangle objectRectangle = new Rectangle(object.getX(), object.getY(), object.getWidth(), object.getHeight());
+		return playerRectangle.intersects(objectRectangle);
 	}
 
 	public int getX() {
