@@ -36,24 +36,36 @@ public class MainController {
 
 		if (game.getStartPressed()) {
 			if (keyPressed == e.VK_RIGHT && tagManXpos <= getWidth - tagManWidth - (tagManWidth / 4)) {
+				collidesWithDashes(tagManXpos, tagManYpos);
+				collidesWithWalls(tagManXpos, tagManYpos);
 				game.getTagMan().moveForwards();
 				checkFinished();
 			}
+			
 			if (keyPressed == e.VK_DOWN && tagManYpos <= 800 - tagManHeigth - (tagManWidth / 4)) {
-				game.getTagMan().moveDownwards();
-				checkFinished();
+				if (!collidesWithWalls(0, game.getTagMan().getVelocity())) {
+					game.getTagMan().moveDownwards();
+					checkFinished();
+				}
 			}
+			
 			if (keyPressed == e.VK_UP && tagManYpos >= 0 + (tagManHeigth / 4)) {
+				collidesWithDashes(tagManXpos, tagManYpos);
+				collidesWithWalls(tagManXpos, tagManYpos);
 				game.getTagMan().moveUpwards();
 				checkFinished();
 			}
 
 			if (keyPressed == KeyEvent.VK_NUMPAD3 && tagManXpos <= getWidth - tagManWidth - (tagManWidth / 4)  && tagManYpos <= 800 - tagManHeigth - (tagManWidth / 4)) {
+				collidesWithDashes(tagManXpos, tagManYpos);
+				collidesWithWalls(tagManXpos, tagManYpos);
 				game.getTagMan().moveHorizontalyDownwards();
 				checkFinished();
 			}
 
 			if (keyPressed == KeyEvent.VK_NUMPAD9 && tagManXpos <= getWidth - tagManWidth - (tagManWidth / 4) && tagManYpos >= 0 + (tagManHeigth / 4)) {
+				collidesWithDashes(tagManXpos, tagManYpos);
+				collidesWithWalls(tagManXpos, tagManYpos);
 				game.getTagMan().moveHorizontalyUpwards();
 				checkFinished();
 			}
@@ -66,6 +78,7 @@ public class MainController {
 				return true;
 			}
 		}
+		System.out.println("WALL");
 		return false;
 	}
 
