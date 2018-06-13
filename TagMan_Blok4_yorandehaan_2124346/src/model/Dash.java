@@ -66,7 +66,7 @@ public class Dash extends GameObject {
 	}
 
 	public Rectangle getBounds() {
-		return new Rectangle((int) getPoint().getX(), (int) getPoint().getY(), (int) getDimension().getWidth(), (int) getDimension().getHeight());
+		return new Rectangle(getX(), getY(), getWidth(), getHeight());
 	}
 
 }

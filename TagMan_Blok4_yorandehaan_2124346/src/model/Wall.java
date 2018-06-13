@@ -3,6 +3,7 @@ package model;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.awt.Rectangle;
 
 public class Wall extends GameObject {
 	private Dimension dimension;
@@ -37,5 +38,8 @@ public class Wall extends GameObject {
 		return wallColour;
 	}
 	
+	public Rectangle getBounds() {
+		return new Rectangle(getX(), getY(), getWidth(), getHeight());
+	}
 
 }

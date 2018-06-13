@@ -19,4 +19,12 @@ public abstract class GameObject {
 	public int getY() {
 		return (int) point.getY();
 	}
+
+	public int getWidth() {
+		return (int) dimension.getWidth();
+	}
+
+	public int getHeight() {
+		return (int) dimension.getHeight();
+	}
 }

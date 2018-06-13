@@ -46,6 +46,16 @@ public class MainController {
 				game.getTagMan().moveUpwards();
 				checkFinished();
 			}
+
+			if (keyPressed == KeyEvent.VK_NUMPAD3 && tagManXpos <= getWidth - tagManWidth - (tagManWidth / 4)  && tagManYpos <= 800 - tagManHeigth - (tagManWidth / 4)) {
+				game.getTagMan().moveHorizontalyDownwards();
+				checkFinished();
+			}
+
+			if (keyPressed == KeyEvent.VK_NUMPAD9 && tagManXpos <= getWidth - tagManWidth - (tagManWidth / 4) && tagManYpos >= 0 + (tagManHeigth / 4)) {
+				game.getTagMan().moveHorizontalyUpwards();
+				checkFinished();
+			}
 		}
 	}
 
@@ -66,7 +76,7 @@ public class MainController {
 			game.setSucces(true);
 		}
 	}
-
+	
 	public void systemExit() {
 		System.exit(0);
 	}

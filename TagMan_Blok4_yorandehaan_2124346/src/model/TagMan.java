@@ -13,6 +13,7 @@ public class TagMan extends GameObject {
 	private Color thirdCircle;
 
 	private int velocity;
+	private int diagonalVelocity;
 	private int xPos;
 	private int yPos;
 	
@@ -21,14 +22,15 @@ public class TagMan extends GameObject {
 		this.dimension = dimension;
 		this.point = point;	
 		
-		this.xPos = (int) point.getX();
-		this.yPos = (int) point.getY();
+		this.xPos = getX();
+		this.yPos = getY();
 		
 		this.firstCircle = Color.RED;
 		this.secondCircle = new Color(255, 141, 0);
 		this.thirdCircle = new Color(255, 200, 0);
 		
 		this.velocity = 10;
+		this.diagonalVelocity = (velocity / 3) * 2;
 	}
 
 	
@@ -49,8 +51,15 @@ public class TagMan extends GameObject {
 	}
 	
 	public void moveHorizontalyDownwards() {
-		point.setLocation(xPos, yPos + (velocity * (2 / 3)));
-		yPos = yPos + (velocity * (2 / 3));
+		point.setLocation(xPos + diagonalVelocity, yPos + diagonalVelocity);
+		xPos = xPos + diagonalVelocity;
+		yPos = yPos + diagonalVelocity;
+	}
+	
+	public void moveHorizontalyUpwards() {
+		point.setLocation(xPos + diagonalVelocity, yPos - diagonalVelocity);
+		xPos = xPos + diagonalVelocity;
+		yPos = yPos - diagonalVelocity;
 	}
 	
 	public Dimension getDimension() {
@@ -102,7 +111,7 @@ public class TagMan extends GameObject {
 	}
 	
 	public Rectangle getBounds() { 
-		return new Rectangle((int) getPoint().getX(), (int) getPoint().getY(), (int) getDimension().getWidth(), (int) getDimension().getHeight());
+		return new Rectangle(getX(), getY(), getWidth(), getHeight());
 	}
 	
 	
