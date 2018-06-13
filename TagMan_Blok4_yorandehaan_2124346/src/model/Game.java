@@ -21,18 +21,22 @@ public class Game extends Observable implements Runnable {
 	private boolean crashed;
 
 	public Game() {
+		level = 1;
+		
+		loadNextLevel();
+		createDashes();
+		createWalls();
+	}
+	public void loadNextLevel() {
 		tagMan = new TagMan(new Dimension(50, 50), new Point(5, 375));
 		dashes = new ArrayList<>();
 		walls = new ArrayList<>();
-		level = 1;
+		level = level + 1;
 		score = 0;
 		timerAmount = 30;
 		startPressed = false;
 		succes = false;
 		crashed = false;
-
-		createDashes();
-		createWalls();
 	}
 
 	public void createDashes() {
@@ -52,15 +56,22 @@ public class Game extends Observable implements Runnable {
 		int defaultWallWidth = 65;
 		int defaultWallHeight = 365;
 
-		Wall wall1 = new Wall(new Dimension(defaultWallWidth, defaultWallHeight), new Point(0, 0));
-		Wall wall2 = new Wall(new Dimension(defaultWallWidth, defaultWallHeight), new Point(1200 - defaultWallWidth, 0));
-		Wall wall3 = new Wall(new Dimension(defaultWallWidth, defaultWallHeight), new Point(0, 800 - defaultWallHeight));
-		Wall wall4 = new Wall(new Dimension(defaultWallWidth, defaultWallHeight), new Point(1200 - defaultWallWidth, 800 - defaultWallHeight));
+		Wall defaultWallTopLeft = new Wall(new Dimension(defaultWallWidth, defaultWallHeight), new Point(0, 0));
+		Wall defaultWallTopRight = new Wall(new Dimension(defaultWallWidth, defaultWallHeight), new Point(1200 - defaultWallWidth, 0));
+		Wall defaultWallBottomLeft = new Wall(new Dimension(defaultWallWidth, defaultWallHeight), new Point(0, 800 - defaultWallHeight));
+		Wall defaultWallBottomRight = new Wall(new Dimension(defaultWallWidth, defaultWallHeight), new Point(1200 - defaultWallWidth, 800 - defaultWallHeight));
 
-		walls.add(wall1);
-		walls.add(wall2);
-		walls.add(wall3);
-		walls.add(wall4);
+		walls.add(defaultWallTopLeft);
+		walls.add(defaultWallTopRight);
+		walls.add(defaultWallBottomLeft);
+		walls.add(defaultWallBottomRight);
+		
+		if(level == 2) {
+			int wallObstacleWidth = defaultWallWidth / 2;
+			int wallObstacleHeigth = defaultWallHeight / 4;
+			Wall wallObstacle = new Wall(new Dimension(defaultWallWidth, wallObstacleHeigth), new Point(600 - (wallObstacleWidth  / 2), 400 - (defaultWallHeight)));	
+			walls.add(wallObstacle);
+		}
 	}
 	
 	public boolean collidesWithDash(int x, int y) {
@@ -77,6 +88,11 @@ public class Game extends Observable implements Runnable {
 	public void update() {
 		this.setChanged();
 		this.notifyObservers();
+	}
+	
+	
+	public void nextLevel() {
+		
 	}
 	
 	// Getters and Setters

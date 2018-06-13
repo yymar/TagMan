@@ -33,22 +33,19 @@ public class PlayView extends JPanel implements Observer {
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		
-		String welcomeText = "Welcome to TagMan";	
+
+		// Introduction Text
+		String welcomeText = "Welcome to TagMan";
 		String introText = "move with arrows or numpad";
 		String levelText = "LEVEL " + mainController.getGame().getLevel();
 		String instructionText = "press S to start";
-		
+		// Hit text
 		String tagManHitText = "TAGMAN IS HIT";
 		String gameOver = "GAMEOVER";
 		String yourScore = "Your score: " + mainController.getGame().getScore();
-		String exitString  = "hit ESC to exit";
-		// Introduction Text
+		String exitString = "hit ESC to exit";
 		// draws center of component
 		if (!mainController.getGame().getStartPressed()) {
-			g.setColor(Color.RED);
-			g.drawLine(getWidth() / 2, 0, getWidth() / 2, getHeight());
-			g.drawLine(0, getHeight() / 2, getWidth(), getHeight() / 2);
 			// Draw text
 			g.setColor(Color.YELLOW);
 			this.drawCenteredString(g, welcomeText, new Rectangle(new Dimension(getWidth(), getHeight() - 200)), new Font("Helvetica", Font.PLAIN, 32));

@@ -116,17 +116,17 @@ public class MainController {
 		Color thirdCircleColorFinish = new Color(170, 255, 170);
 		
 		Rectangle finish = new Rectangle(1180, 0, 365, 800);
-
+		
 		if (tagManHitBox.intersects(finish)) {
+			game.setSucces(true);
+			
 			tagMan.setFirstCircle(firstCircleColorFinish);
 			tagMan.setSecondCircle(secondCircleColorFinish);
 			tagMan.setThirdCircle(thirdCircleColorFinish);
-
-			game.setSucces(true);
-			resetTimer();
 		}
 		
 		if (game.getSucces()) {
+			game.setScore(game.getTimerAmount());
 			nextLevel();
 		}
 		
