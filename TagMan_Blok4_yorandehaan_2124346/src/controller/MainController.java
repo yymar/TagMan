@@ -1,5 +1,6 @@
 package controller;
 
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 
 import model.Game;
@@ -22,18 +23,27 @@ public class MainController {
 
 	public void move(KeyEvent e) {
 		int keyPressed = e.getKeyCode();
-		
+		int tagManXpos = (int) game.getTagMan().getPoint().getX();
+		int tagManYpos = (int) game.getTagMan().getPoint().getY();
+		int tagManWidth = (int) game.getTagMan().getDimension().getWidth();
+		int tagManHeigth = (int) game.getTagMan().getDimension().getHeight();
+		int getWidth = mainFrame.getContentPane().getPlayView().getWidth();
+		int getHeight = mainFrame.getContentPane().getPlayView().getHeight();
+
 		if (game.getStartPressed()) {
-			if (keyPressed == e.VK_RIGHT && game.getTagMan().getPoint().getX() <= mainFrame.getWidth() - 100) {
+			if (keyPressed == e.VK_RIGHT && tagManXpos <= getWidth - tagManWidth - (tagManWidth / 4)) {
 				game.getTagMan().moveForwards();
 			}
-			if (keyPressed == e.VK_DOWN) {
+			if (keyPressed == e.VK_DOWN && tagManYpos <= 800 - tagManHeigth - (tagManWidth / 4)) {
 				game.getTagMan().moveDownwards();
 			}
-			if (keyPressed == e.VK_UP) {
+			if (keyPressed == e.VK_UP && tagManYpos >= 0 + (tagManHeigth / 4)) {
 				game.getTagMan().moveUpwards();
 			}
 		}
+	}
+	
+	public void checkFinished() {
 	}
 	
 	public void systemExit() {

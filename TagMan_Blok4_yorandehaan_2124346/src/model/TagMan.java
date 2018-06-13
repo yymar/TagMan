@@ -3,6 +3,7 @@ package model;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.awt.Rectangle;
 
 public class TagMan extends GameObject {
 	private Dimension dimension;
@@ -46,7 +47,12 @@ public class TagMan extends GameObject {
 		point.setLocation(xPos, yPos + velocity);
 		yPos = yPos + velocity;
 	}
-
+	
+	public void moveHorizontalyDownwards() {
+		point.setLocation(xPos, yPos + (velocity * (2 / 3)));
+		yPos = yPos + (velocity * (2 / 3));
+	}
+	
 	public Dimension getDimension() {
 		return dimension;
 	}
@@ -74,6 +80,19 @@ public class TagMan extends GameObject {
 	public Color getThirdCircleColour() {
 		return thirdCircle;
 	}
+
+	public int getVelocity() {
+		return velocity;
+	}
+
+	public void setVelocity(int velocity) {
+		this.velocity = velocity;
+	}
+	
+	public Rectangle getBounds() {
+		return new Rectangle((int) getPoint().getX(), (int) getPoint().getY(), (int) getDimension().getWidth(), (int) getDimension().getHeight());
+	}
+	
 	
 
 }

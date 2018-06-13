@@ -77,4 +77,8 @@ public class MainFrame extends JFrame implements Runnable, KeyListener {
 	public void keyTyped(KeyEvent e) {
 
 	}
+
+	public ContentPane getContentPane() {
+		return contentPane;
+	}
 }

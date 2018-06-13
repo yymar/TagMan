@@ -6,12 +6,11 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Rectangle;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import controller.MainController;
@@ -22,20 +21,22 @@ import model.Wall;
 public class PlayView extends JPanel implements Observer {
 	private MainController mainController;
 	private TagManPainterPlain tagManPainterPlain;
-
+	private JLabel level;
 	public PlayView(MainController mainController, Game game) {
 		this.mainController = mainController;
 		game.addObserver(this);
 		this.tagManPainterPlain = new TagManPainterPlain();
 		this.setBackground(new Color(0, 3, 50));
+		
 	}
 
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-
+		
 		String welcomeText = "Welcome to TagMan";	
 		String introText = "move with arrows or numpad";
+		String levelText = "LEVEL " + mainController.getGame().getLevel();
 		String instructionText = "press S to start";
 		
 		// Introduction Text
@@ -49,6 +50,7 @@ public class PlayView extends JPanel implements Observer {
 			this.drawCenteredString(g, welcomeText, new Rectangle(new Dimension(getWidth(), getHeight() - 200)), new Font("Helvetica", Font.PLAIN, 32));
 			this.drawCenteredString(g, introText, new Rectangle(new Dimension(getWidth(), getHeight() - 100)), new Font("Helvetica", Font.PLAIN, 32));
 			// TODO: LEVEL + VARIABLE
+			this.drawCenteredString(g, levelText , new Rectangle(new Dimension(getWidth(), getHeight())), new Font("Helvetica", Font.PLAIN, 32));
 			this.drawCenteredString(g, instructionText, new Rectangle(new Dimension(getWidth(), getHeight() + 100)), new Font("Helvetica", Font.PLAIN, 32));
 		}
 		
@@ -96,8 +98,7 @@ public class PlayView extends JPanel implements Observer {
 	}
 
 	@Override
-	public void update(Observable arg0, Object arg1) {
-		// TODO Auto-generated method stub
+	public void update(Observable o, Object arg) {
 		
 	}
 }
