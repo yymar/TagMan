@@ -14,10 +14,6 @@ public class TimeController extends Observable implements Runnable {
 		isRunning = true;
 	}
 
-	public void resetTimer() {
-
-	}
-
 	@Override
 	public void run() {
 		while (isRunning) {

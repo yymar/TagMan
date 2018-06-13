@@ -3,9 +3,7 @@ package controller;
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 
-import model.Dash;
 import model.Game;
 import model.GameObject;
 import model.TagMan;
@@ -99,7 +97,6 @@ public class MainController {
 	public boolean collidesWithDashes(int x, int y) {
 		for (GameObject object : game.getDashes()) {
 			if (game.getTagMan().willCollide(object, x, y)) {
-				System.out.println(game.getCrashed());
 				game.setCrashed(true);
 				stop();
 				return true;
@@ -122,12 +119,25 @@ public class MainController {
 			tagMan.setFirstCircle(firstCircleColorFinish);
 			tagMan.setSecondCircle(secondCircleColorFinish);
 			tagMan.setThirdCircle(thirdCircleColorFinish);
+			
+			resetTimer();
 			game.setSucces(true);
+			if (game.getSucces()) {
+				continueGame();
+			}
+			;
 		}
 	}
 	
 	public void systemExit() {
 		System.exit(0);
+	}
+	
+	public void nextLevel() {
+		int level = game.getLevel();
+		game.setLevel(level + 1);
+		game.setSucces(false);
+		System.out.println("L" + level);
 	}
 	
 	public void updateTimerAmount(int i) {
@@ -137,9 +147,16 @@ public class MainController {
 	public int getTimeAmount() {
 		return game.getTimerAmount();
 	}
+	
 	public int getMaxTime() {
 		return game.getMaxTime();
 	}
+	
+	public void resetTimer() {
+        game.resetTimer(30);
+        mainFrame.getTimeView().resetTimer();
+        game.update();
+    }
 
 	public void startAllThreads() {
 		// Prevents Threads from starting multiple times.
@@ -148,6 +165,12 @@ public class MainController {
 			timeController.startTimer();
 			game.setStartPressed(true);
 			gameThread.start();
+		}
+	}
+	
+	public void continueGame() {
+		if (game.getSucces()) {
+			nextLevel();
 		}
 	}
 
@@ -159,6 +182,6 @@ public class MainController {
 	}
 
 	public Game getGame() {
-		return game;
+		return game;	
 	}
 }

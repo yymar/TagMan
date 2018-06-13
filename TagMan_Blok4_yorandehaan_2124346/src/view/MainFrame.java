@@ -65,6 +65,10 @@ public class MainFrame extends JFrame implements Runnable, KeyListener {
 			mainController.systemExit();
 		}
 		
+		if (event == 'l' && mainController.getGame().getSucces()) {
+			mainController.nextLevel();
+		}
+		
 		mainController.move(e);
 	}
 

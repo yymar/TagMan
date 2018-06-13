@@ -25,6 +25,7 @@ public class TimeView extends JPanel implements Observer {
 	private int timerHeight;
 	private int interval;
 	private int timerY;
+	private Color timerColour;
 
 	public TimeView(MainController mainController) {
 		this.mainController = mainController;
@@ -32,9 +33,9 @@ public class TimeView extends JPanel implements Observer {
 		this.setBackground(Color.BLACK);
 		this.setLayout(new BorderLayout());
 		setBorder(BorderFactory.createLineBorder(Color.GRAY, 2));
+		this.timerColour = Color.CYAN;
 		setupJLabels();
 	}
-
 
 	private void setupJLabels() {
 		Border margin = new EmptyBorder(20, 20, 10, 20);
@@ -58,7 +59,7 @@ public class TimeView extends JPanel implements Observer {
 		super.paintComponent(g);
 		int amountOfSeconds = mainController.getTimeAmount();
 		int middleOfPanelWidth = (getWidth() / 2) - (TIMERWIDTH / 2);
-		
+
 		int drawHeight = (getHeight() - getHeight() / 8) + timerY * -1;
 
 		timerHeight = getHeight() - (getHeight() / 4);
@@ -66,26 +67,48 @@ public class TimeView extends JPanel implements Observer {
 		timerY = mainController.getTimeAmount() * interval;
 
 		if (mainController.getTimeAmount() > 15) {
-			g.setColor(new Color(0, 200, 254));
+			g.setColor(getTimerColour());
 			g.fillRect(middleOfPanelWidth, drawHeight, TIMERWIDTH, timerY);
 			g.setColor(Color.WHITE);
 			g.drawRect(middleOfPanelWidth, drawHeight, TIMERWIDTH, timerY);
 		}
-		
+
 		if (mainController.getTimeAmount() <= 15) {
-			g.setColor(new Color(255, 200, 0));
+			g.setColor(getTimerColour());
 			g.fillRect(middleOfPanelWidth, drawHeight, TIMERWIDTH, timerY);
 			g.setColor(Color.WHITE);
 			g.drawRect(middleOfPanelWidth, drawHeight, TIMERWIDTH, timerY);
 		}
-		
+
 		if (mainController.getTimeAmount() <= 7) {
-			g.setColor(new Color(255, 0, 0));
+			g.setColor(getTimerColour());
 			g.fillRect(middleOfPanelWidth, drawHeight, TIMERWIDTH, timerY);
 			g.setColor(Color.WHITE);
 			g.drawRect(middleOfPanelWidth, drawHeight, TIMERWIDTH, timerY);
 		}
-	
+
+	}
+
+	public Color getTimerColour() {
+		if (mainController.getTimeAmount() <= 15) {
+			return new Color(255, 200, 0);
+		}
+		if (mainController.getTimeAmount() <= 7) {
+			return Color.RED;
+		}
+		return Color.CYAN;
+	}
+
+	public void resetTimer() {
+		timerHeight = getHeight() - (getHeight() / 4);
+		interval = timerHeight / mainController.getMaxTime();
+		timerY = mainController.getTimeAmount() * interval;
+		secondsInt.setText(mainController.getTimeAmount() + "");
+		setTimerColour(Color.CYAN);
+	}
+
+	public void setTimerColour(Color timerColour) {
+		this.timerColour = timerColour;
 	}
 
 	@Override

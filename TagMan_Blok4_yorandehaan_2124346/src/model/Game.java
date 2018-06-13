@@ -71,13 +71,15 @@ public class Game extends Observable implements Runnable {
 	public void moveDashes() {
 		while (startPressed) {
 			try {
-				Thread.sleep(1000 / 60);
-				for (Dash dash : dashes) {
-					if (!dash.getIsMoving()) {
-						dash.setIsMoving();
-					}
-					if(dash.getIsMoving()) {
-						dash.moveDownwards();
+				if (!getSucces()) {
+					Thread.sleep(1000 / 60);
+					for (Dash dash : dashes) {
+						if (!dash.getIsMoving()) {
+							dash.setIsMoving();
+						}
+						if (dash.getIsMoving()) {
+							dash.moveDownwards();
+						}
 					}
 				}
 			} catch (InterruptedException e) {
@@ -159,6 +161,10 @@ public class Game extends Observable implements Runnable {
 	@Override
 	public void run() {
 		moveDashes();
+	}
+
+	public void resetTimer(int i) {
+		this.timerAmount = i;
 	}
 
 }
