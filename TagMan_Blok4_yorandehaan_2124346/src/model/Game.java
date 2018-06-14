@@ -19,27 +19,29 @@ public class Game extends Observable implements Runnable {
 	private boolean startPressed;
 	private boolean succes;
 	private boolean crashed;
-
+	private boolean gameFinished;
+	
 	public Game() {
 		loadLevel();
 	}
-	
+
 	public void loadLevel() {
-		level = level + 1;
-		score = getTimerAmount() + score;
-		
-		startPressed = false;
-		succes = false;
-		crashed = false;
-		timerAmount = 30;
-		
-		tagMan = new TagMan(new Dimension(50, 50), new Point(5, 375));
-		dashes = new ArrayList<>();
-		walls = new ArrayList<>();
-		
-		createDashes();
-		createWalls();
-		update();
+		if (!getGameFinished()) {
+			level = level + 1;
+
+			startPressed = false;
+			succes = false;
+			crashed = false;
+			timerAmount = 30;
+
+			tagMan = new TagMan(new Dimension(50, 50), new Point(5, 375));
+			dashes = new ArrayList<>();
+			walls = new ArrayList<>();
+
+			createDashes();
+			createWalls();
+			update();
+		}
 	}
 
 	public void createDashes() {
@@ -90,6 +92,14 @@ public class Game extends Observable implements Runnable {
 	public void update() {
 		this.setChanged();
 		this.notifyObservers();
+	}
+	
+	public boolean getGameFinished() {
+		if (succes && getLevel() == 2) {
+			gameFinished = true;
+			return true;
+		}
+		return false;
 	}
 	
 	// Getters and Setters

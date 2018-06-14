@@ -40,7 +40,7 @@ public class MainController {
 		if (game.getStartPressed()) {
 			if (!game.getSucces()) {
 				if (!game.getCrashed()) {
-					if (keyPressed == KeyEvent.VK_RIGHT && tagManXpos <= getWidth - tagManWidth - (tagManWidth / 4)) {
+					if ((keyPressed == KeyEvent.VK_RIGHT || keyPressed == KeyEvent.VK_NUMPAD6) && tagManXpos <= getWidth - tagManWidth - (tagManWidth / 4)) {
 						if (!collidesWithWalls(tagMan.getVelocity(), 0)) {
 							if (!collidesWithDashes(tagMan.getVelocity(), 0)) {
 								tagMan.moveForwards();
@@ -49,7 +49,7 @@ public class MainController {
 						}
 					}
 
-					if (keyPressed == KeyEvent.VK_DOWN && tagManYpos <= 800 - tagManHeigth - (tagManWidth / 4)) {
+					if ((keyPressed == KeyEvent.VK_DOWN || keyPressed == KeyEvent.VK_NUMPAD2) && tagManYpos <= 800 - tagManHeigth - (tagManWidth / 4)) {
 						if (!collidesWithWalls(0, tagMan.getVelocity())) {
 							if (!collidesWithDashes(0, tagMan.getVelocity())) {
 								tagMan.moveDownwards();
@@ -58,7 +58,7 @@ public class MainController {
 						}
 					}
 
-					if (keyPressed == KeyEvent.VK_UP && tagManYpos >= 0 + (tagManHeigth / 4)) {
+					if ((keyPressed == KeyEvent.VK_UP || keyPressed == KeyEvent.VK_NUMPAD8) && tagManYpos >= 0 + (tagManHeigth / 4)) {
 						if (!collidesWithWalls(0, tagMan.getVelocity() * -1)) {
 							if (!collidesWithDashes(0, tagMan.getVelocity() * -1)) {
 								tagMan.moveUpwards();
@@ -120,7 +120,7 @@ public class MainController {
 		
 		if (tagManHitBox.intersects(finish)) {
 			game.setSucces(true);
-			game.setScore(getTimeAmount());
+			game.setScore(game.getScore() + getTimeAmount());
 			game.update();
 			
 			tagMan.setFirstCircle(firstCircleColorFinish);
@@ -148,8 +148,7 @@ public class MainController {
 	public void resetTimer() {
         game.resetTimer(getMaxTime());
         mainFrame.getTimeView().resetTimer();
-        game.update();
-    }
+	}
 	
 	public void startGameThread() {
 		this.gameThread = new Thread(game);

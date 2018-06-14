@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import controller.MainController;
@@ -21,7 +20,7 @@ import model.Wall;
 public class PlayView extends JPanel implements Observer {
 	private MainController mainController;
 	private TagManPainterPlain tagManPainterPlain;
-	private JLabel level;
+
 	public PlayView(MainController mainController, Game game) {
 		this.mainController = mainController;
 		game.addObserver(this);
@@ -45,10 +44,17 @@ public class PlayView extends JPanel implements Observer {
 		String yourScore = "Your score: " + mainController.getGame().getScore();
 		String exitString = "hit ESC to exit";
 		//Finished text
-		String finished = "fimished";
+		String finished = "finished";
 		String yourScoreFinish = "your score: " + mainController.getGame().getScore();
 		String continueGame = "hit L to continue";
-		// draws center of component
+		//End game text
+		String youWon = "YEAH TagMan Reached the end";
+		String totalScore =  "Total score: " + mainController.getGame().getScore();
+		
+		tagManPainterPlain.paint(g, mainController.getGame().getTagMan());
+		paintWalls(g);
+		paintDashes(g);
+		
 		if (!mainController.getGame().getStartPressed()) {
 			// Draw text
 			g.setColor(Color.YELLOW);
@@ -72,17 +78,23 @@ public class PlayView extends JPanel implements Observer {
 			this.drawCenteredString(g, exitString, new Rectangle(new Dimension(getWidth(), getHeight() + 100)), new Font("Helvetica", Font.PLAIN, 32));
 		}
 		
-		//Finished text
-		if (mainController.getGame().getSucces()) {
+		// Finished text
+		if (mainController.getGame().getSucces() && !mainController.getGame().getGameFinished()) {
 			g.setColor(Color.YELLOW);
 			this.drawCenteredString(g, finished, new Rectangle(new Dimension(getWidth(), getHeight()  - 200)), new Font("Helvetica", Font.PLAIN, 32));
 			this.drawCenteredString(g, yourScoreFinish, new Rectangle(new Dimension(getWidth(), getHeight()  - 100)), new Font("Helvetica", Font.PLAIN, 32));
 			this.drawCenteredString(g, continueGame, new Rectangle(new Dimension(getWidth(), getHeight()  + 100)), new Font("Helvetica", Font.PLAIN, 32));
 		}
+
+		if (mainController.getGame().getSucces() && mainController.getGame().getGameFinished()) {
+			g.setColor(Color.YELLOW);
+			this.drawCenteredString(g, youWon, new Rectangle(new Dimension(getWidth(), getHeight() - 200)), new Font("Helvetica", Font.PLAIN, 32));
+			this.drawCenteredString(g, gameOver, new Rectangle(new Dimension(getWidth(), getHeight() - 100)), new Font("Helvetica", Font.PLAIN, 32));
+			this.drawCenteredString(g, totalScore, new Rectangle(new Dimension(getWidth(), getHeight())), new Font("Helvetica", Font.PLAIN, 32));
+			this.drawCenteredString(g, exitString, new Rectangle(new Dimension(getWidth(), getHeight() + 100)), new Font("Helvetica", Font.PLAIN, 32));
+		}
+	
 		
-		tagManPainterPlain.paint(g, mainController.getGame().getTagMan());
-		paintWalls(g);
-		paintDashes(g);
 	}
 
 	private void paintDashes(Graphics g) {
@@ -125,6 +137,7 @@ public class PlayView extends JPanel implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
+		Game game = (Game) o;
 		
 	}
 }

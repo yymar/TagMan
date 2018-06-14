@@ -65,6 +65,7 @@ public class TimeView extends JPanel implements Observer {
 		timerHeight = getHeight() - (getHeight() / 4);
 		interval = timerHeight / mainController.getMaxTime();
 		timerY = mainController.getTimeAmount() * interval;
+		
 		if (mainController.getTimeAmount() > 15) {
 			g.setColor(Color.CYAN);
 			g.fillRect(middleOfPanelWidth, drawHeight, TIMERWIDTH, timerY);
@@ -103,5 +104,6 @@ public class TimeView extends JPanel implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		secondsInt.setText(arg + "");
+		System.out.println(arg);
 	}
 }
