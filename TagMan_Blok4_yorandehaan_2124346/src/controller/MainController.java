@@ -15,13 +15,11 @@ public class MainController {
 	private MainFrame mainFrame;
 	private Thread gameThread;
 	private Thread timeControllerThread;
-	private boolean threadsRunning;	
 	
 	public MainController() {
 		this.game = new Game();
 		this.timeController = new TimeController(this);
 		this.mainFrame = new MainFrame(this, game);
-		this.threadsRunning = false;
 		
 		this.timeControllerThread = new Thread(timeController);
 		
@@ -122,6 +120,8 @@ public class MainController {
 		
 		if (tagManHitBox.intersects(finish)) {
 			game.setSucces(true);
+			game.setScore(getTimeAmount());
+			game.update();
 			
 			tagMan.setFirstCircle(firstCircleColorFinish);
 			tagMan.setSecondCircle(secondCircleColorFinish);

@@ -21,16 +21,16 @@ public class TimeController extends Observable implements Runnable {
 				if (mainController.getGame().getStartPressed()) {
 					if (!mainController.getGame().getSucces()) {
 						if (!mainController.getGame().getCrashed()) {
-							Thread.sleep(1000);
 							mainController.updateTimerAmount(1);
+							this.setChanged();
+							this.notifyObservers(mainController.getTimeAmount());
+							Thread.sleep(1000);
 							if (mainController.getTimeAmount() <= 0) {
 								isRunning = false;
 							}
 						}
 					}
 				}
-				this.setChanged();
-				this.notifyObservers(mainController.getTimeAmount());
 			} catch (InterruptedException e) {
 				Thread.currentThread().interrupt();
 			}

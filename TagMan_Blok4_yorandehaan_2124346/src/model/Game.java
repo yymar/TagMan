@@ -2,12 +2,9 @@ package model;
 
 import java.awt.Dimension;
 import java.awt.Point;
-import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Observable;
-import java.util.Random;
 
-import org.omg.CosNaming.IstringHelper;
 
 public class Game extends Observable implements Runnable {
 	private ArrayList<Dash> dashes;
@@ -42,6 +39,7 @@ public class Game extends Observable implements Runnable {
 		
 		createDashes();
 		createWalls();
+		update();
 	}
 
 	public void createDashes() {

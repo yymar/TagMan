@@ -73,7 +73,7 @@ public class PlayView extends JPanel implements Observer {
 		}
 		
 		//Finished text
-		if(mainController.getGame().getSucces()) {
+		if (mainController.getGame().getSucces()) {
 			g.setColor(Color.YELLOW);
 			this.drawCenteredString(g, finished, new Rectangle(new Dimension(getWidth(), getHeight()  - 200)), new Font("Helvetica", Font.PLAIN, 32));
 			this.drawCenteredString(g, yourScoreFinish, new Rectangle(new Dimension(getWidth(), getHeight()  - 100)), new Font("Helvetica", Font.PLAIN, 32));
