@@ -75,7 +75,7 @@ public class Game extends Observable implements Runnable {
 		if (level == 2) {
 			int wallObstacleWidth = 50;
 			int wallObstacleHeigth = defaultWallHeight / 2;
-			Wall wallObstacle = new Wall(new Dimension(25, wallObstacleHeigth), new Point(250 - (wallObstacleWidth  / 2), defaultWallHeight));	
+			Wall wallObstacle = new Wall(new Dimension(25, wallObstacleHeigth), new Point(250 - (wallObstacleWidth  / 2), 665 - defaultWallHeight));	
 			walls.add(wallObstacle);
 		}
 	}
