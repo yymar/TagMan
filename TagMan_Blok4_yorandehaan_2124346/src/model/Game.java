@@ -79,7 +79,7 @@ public class Game extends Observable implements Runnable {
 		}
 	}
 	
-	public boolean collidesWithDash(int x, int y) {
+	public boolean tagManCollidesWithDash(int x, int y) {
 		for (GameObject object : getDashes()) {
 			if (object.willCollide(tagMan, x, y)) {
 				setCrashed(true);
@@ -175,7 +175,6 @@ public class Game extends Observable implements Runnable {
 
 	@Override
 	public void run() {
-		System.out.println("start run method");
 		try {
 			while (isRunning) {
 				if (getStartPressed()) {
@@ -187,7 +186,7 @@ public class Game extends Observable implements Runnable {
 									dash.setIsMoving();
 								}
 								if (dash.getIsMoving()) {
-									if (collidesWithDash(0, dash.getSpeed())) {
+									if (tagManCollidesWithDash(0, dash.getSpeed())) {
 										dash.moveDownwards();
 									}
 								}

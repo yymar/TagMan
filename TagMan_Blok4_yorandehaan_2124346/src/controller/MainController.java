@@ -42,7 +42,7 @@ public class MainController {
 		if (game.getStartPressed()) {
 			if (!game.getSucces()) {
 				if (!game.getCrashed()) {
-					if (keyPressed == e.VK_RIGHT && tagManXpos <= getWidth - tagManWidth - (tagManWidth / 4)) {
+					if (keyPressed == KeyEvent.VK_RIGHT && tagManXpos <= getWidth - tagManWidth - (tagManWidth / 4)) {
 						if (!collidesWithWalls(tagMan.getVelocity(), 0)) {
 							if (!collidesWithDashes(tagMan.getVelocity(), 0)) {
 								tagMan.moveForwards();
@@ -51,7 +51,7 @@ public class MainController {
 						}
 					}
 
-					if (keyPressed == e.VK_DOWN && tagManYpos <= 800 - tagManHeigth - (tagManWidth / 4)) {
+					if (keyPressed == KeyEvent.VK_DOWN && tagManYpos <= 800 - tagManHeigth - (tagManWidth / 4)) {
 						if (!collidesWithWalls(0, tagMan.getVelocity())) {
 							if (!collidesWithDashes(0, tagMan.getVelocity())) {
 								tagMan.moveDownwards();
@@ -60,7 +60,7 @@ public class MainController {
 						}
 					}
 
-					if (keyPressed == e.VK_UP && tagManYpos >= 0 + (tagManHeigth / 4)) {
+					if (keyPressed == KeyEvent.VK_UP && tagManYpos >= 0 + (tagManHeigth / 4)) {
 						if (!collidesWithWalls(0, tagMan.getVelocity() * -1)) {
 							if (!collidesWithDashes(0, tagMan.getVelocity() * -1)) {
 								tagMan.moveUpwards();
@@ -142,11 +142,11 @@ public class MainController {
 	}
 	
 	public int getMaxTime() {
-		return game.getMaxTime();
+		return Game.getMaxTime();
 	}
 	
 	public void resetTimer() {
-        game.resetTimer(30);
+        game.resetTimer(getMaxTime());
         mainFrame.getTimeView().resetTimer();
         game.update();
     }
@@ -157,22 +157,13 @@ public class MainController {
 		game.startGameThread();
 	}
 	public void startTimerThread() {
-		this.gameThread = new Thread(game);
-		gameThread.start();
-		game.startGameThread();
-	}
-
-	public void startAllThreads() {
-		// Prevents Threads from starting multiple times.
-		if (!game.getStartPressed() && !threadsRunning) {
-			timeControllerThread.start();
-			timeController.startTimer();
-			threadsRunning = true;
-		} 
+		this.timeControllerThread = new Thread(timeController);
+		timeControllerThread.start();
+		timeController.startTimer();
 	}
 
 	public void stop() {
-		if (game.getCrashed()) {
+		if (game.getCrashed() || game.getSucces()) {
 			timeControllerThread.interrupt();
 			gameThread.interrupt();
 		}
