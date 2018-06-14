@@ -16,19 +16,19 @@ public class TagMan extends GameObject {
 	private int diagonalVelocity;
 	private int xPos;
 	private int yPos;
-	
+
 	public TagMan(Dimension dimension, Point point) {
 		super(dimension, point);
 		this.dimension = dimension;
-		this.point = point;	
-		
+		this.point = point;
+
 		this.xPos = getX();
 		this.yPos = getY();
-		
+
 		this.firstCircle = Color.RED;
 		this.secondCircle = new Color(255, 141, 0);
 		this.thirdCircle = new Color(255, 200, 0);
-		
+
 		this.velocity = 10;
 		this.diagonalVelocity = (velocity / 3) * 2;
 	}
@@ -47,19 +47,19 @@ public class TagMan extends GameObject {
 		point.setLocation(xPos, yPos + velocity);
 		yPos = yPos + velocity;
 	}
-	
+
 	public void moveDiagonalyDownwards() {
 		point.setLocation(xPos + diagonalVelocity, yPos + diagonalVelocity);
 		xPos = xPos + diagonalVelocity;
 		yPos = yPos + diagonalVelocity;
 	}
-	
+
 	public void moveDiogonalyUpwards() {
 		point.setLocation(xPos + diagonalVelocity, yPos - diagonalVelocity);
 		xPos = xPos + diagonalVelocity;
 		yPos = yPos - diagonalVelocity;
 	}
-	
+
 	public Dimension getDimension() {
 		return dimension;
 	}
@@ -107,15 +107,14 @@ public class TagMan extends GameObject {
 	public void setVelocity(int velocity) {
 		this.velocity = velocity;
 	}
-	
+
 	public int getDiagonalVelocity() {
 		return diagonalVelocity;
 	}
-	
-	public Rectangle getBounds() { 
+
+	// Returns a rectangle of the tagMan for collision detection purposes
+	public Rectangle getBounds() {
 		return new Rectangle(getX(), getY(), getWidth(), getHeight());
 	}
-	
-	
 
 }

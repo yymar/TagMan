@@ -67,7 +67,7 @@ public class Dash extends GameObject {
 		this.point = point;
 	}
 	
-	// Returns
+	// Returns a rectangle of the dash for collision detection purposes
 	public Rectangle getBounds() {
 		return new Rectangle(getX(), getY(), getWidth(), getHeight());
 	}

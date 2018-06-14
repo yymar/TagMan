@@ -21,8 +21,9 @@ public class ContentPane extends JPanel {
 	
 	public ContentPane(MainController controller, Game game) {
 		this.mainController = controller;
-		this.setLayout(new BorderLayout());
-		this.setPreferredSize(new Dimension(1300, 800));
+		setLayout(new BorderLayout());
+		// set the preferedSize here, because if you do it in mainFrame it counts the JFrame bars as width and height as well.
+		setPreferredSize(new Dimension(1300, 800));
 		timeView = new TimeView(mainController);
 		playView = new PlayView(mainController, game);
 		gameView = new GameView(game);
@@ -30,15 +31,9 @@ public class ContentPane extends JPanel {
 		add(playView);
 		
 		this.setupLeftPanel();
-		this.setupTimeView();
 	}
-
-	private void setupTimeView() {
-
-	}
-
 	
-
+	// Created a leftPanel to make positioning easier
 	public void setupLeftPanel() {
 		leftPanel = new JPanel();
 		leftPanel.setPreferredSize(new Dimension(100, 0));

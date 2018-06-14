@@ -29,7 +29,6 @@ public class GameView extends JPanel implements Observer {
 		this.setupJLabels();
 	}
 
-
 	private void setupJLabels() {
 		scoreText = new JLabel("score");
 		scoreInt = new JLabel("");

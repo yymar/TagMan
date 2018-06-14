@@ -28,9 +28,9 @@ public class TimeView extends JPanel implements Observer {
 
 	public TimeView(MainController mainController) {
 		this.mainController = mainController;
-		this.setPreferredSize(new Dimension(0, 1000));
-		this.setBackground(Color.BLACK);
-		this.setLayout(new BorderLayout());
+		setPreferredSize(new Dimension(0, 1000));
+		setBackground(Color.BLACK);
+		setLayout(new BorderLayout());
 		setBorder(BorderFactory.createLineBorder(Color.GRAY, 2));
 		setupJLabels();
 	}
@@ -56,9 +56,9 @@ public class TimeView extends JPanel implements Observer {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		int middleOfPanelWidth = (getWidth() / 2) - (TIMERWIDTH / 2);
-
 		int drawHeight = (getHeight() - getHeight() / 8) + timerY * -1;
-
+		
+		// This calculates the Timer painting y location down everytime the timeAmount left changes.
 		timerHeight = getHeight() - (getHeight() / 4);
 		interval = timerHeight / mainController.getMaxTime();
 		timerY = mainController.getTimeAmount() * interval;

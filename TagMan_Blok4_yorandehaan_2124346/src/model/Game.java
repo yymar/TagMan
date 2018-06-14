@@ -19,13 +19,11 @@ public class Game extends Observable implements Runnable {
 	private boolean startPressed;
 	private boolean succes;
 	private boolean crashed;
-	@SuppressWarnings("unused")
-	private boolean gameFinished;
 	
 	public Game() {
 		loadLevel();
 	}
-
+	// Method loads level the correct way.
 	public void loadLevel() {
 		if (!getGameFinished()) {
 			level = level + 1;
@@ -62,6 +60,7 @@ public class Game extends Observable implements Runnable {
 		int defaultWallWidth = 65;
 		int defaultWallHeight = 365;
 
+		// Hard coded the walls, because I didn't make any file reader system that sets up the levels
 		Wall defaultWallTopLeft = new Wall(new Dimension(defaultWallWidth, defaultWallHeight), new Point(0, 0));
 		Wall defaultWallTopRight = new Wall(new Dimension(defaultWallWidth, defaultWallHeight), new Point(1200 - defaultWallWidth, 0));
 		Wall defaultWallBottomLeft = new Wall(new Dimension(defaultWallWidth, defaultWallHeight), new Point(0, 800 - defaultWallHeight));
@@ -72,6 +71,7 @@ public class Game extends Observable implements Runnable {
 		walls.add(defaultWallBottomLeft);
 		walls.add(defaultWallBottomRight);
 		
+		// Only adds the obstacle wall if it's the second level
 		if (level == 2) {
 			int wallObstacleWidth = 50;
 			int wallObstacleHeigth = defaultWallHeight / 2;
@@ -79,6 +79,12 @@ public class Game extends Observable implements Runnable {
 			walls.add(wallObstacle);
 		}
 	}
+	
+	/*
+	 * I wrote this method, because the game actually needs to know when a dash hits
+	 * a tagMan when a tagMan stands still the dash needs to know too when it hits a
+	 * tagMan, instead of just the tagMan that knows when it hits a dash.
+	 */
 	
 	public boolean tagManCollidesWithDash(int x, int y) {
 		for (GameObject object : getDashes()) {
@@ -95,9 +101,9 @@ public class Game extends Observable implements Runnable {
 		this.notifyObservers();
 	}
 	
+	// I have a maximum of 2 levels, if the level count is higher
 	public boolean getGameFinished() {
 		if (succes && getLevel() == 2) {
-			gameFinished = true;
 			return true;
 		}
 		return false;
@@ -132,16 +138,16 @@ public class Game extends Observable implements Runnable {
 		this.score = score;
 	}
 
-	public void updateTimerAmount(int i) {
-		this.timerAmount = timerAmount - i;
-	}
-
 	public int getTimerAmount() {
 		return timerAmount;
 	}
 
 	public void setTimerAmount(int timerAmount) {
 		this.timerAmount = timerAmount;
+	}
+
+	public void updateTimerAmount(int i) {
+		this.timerAmount = timerAmount - i;
 	}
 
 	public static int getMaxTime() {
@@ -172,7 +178,6 @@ public class Game extends Observable implements Runnable {
 		this.succes = succes;
 		update();
 	}
-	
 
 	public void resetTimer(int i) {
 		this.timerAmount = i;
@@ -181,6 +186,11 @@ public class Game extends Observable implements Runnable {
 	public void startGameThread() {
 		isRunning = true;
 	}
+
+	/*
+	 * If start is pressed 's' and the level hasn't been won yet and the tagMan
+	 * isn't crashed it's allowed to move the dashes, else they will be stopped.
+	 */
 
 	@Override
 	public void run() {
@@ -194,6 +204,7 @@ public class Game extends Observable implements Runnable {
 								if (!dash.getIsMoving()) {
 									dash.setIsMoving();
 								}
+								// Checks for collision with tagMan, if a dash doesn't collide they will remain moving.
 								if (dash.getIsMoving()) {
 									if (tagManCollidesWithDash(0, dash.getSpeed())) {
 										dash.moveDownwards();

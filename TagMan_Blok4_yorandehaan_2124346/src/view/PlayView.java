@@ -44,18 +44,18 @@ public class PlayView extends JPanel implements Observer {
 		String gameOver = "GAMEOVER";
 		String yourScore = "Your score: " + mainController.getGame().getScore();
 		String exitString = "hit ESC to exit";
-		//Finished text
-		String finished = "finished";
+		// Finished text
+		String finished = "Finished !";
 		String yourScoreFinish = "your score: " + mainController.getGame().getScore();
 		String continueGame = "hit L to continue";
-		//End game text
+		// End game text
 		String youWon = "YEAH TagMan Reached the end";
-		String totalScore =  "Total score: " + mainController.getGame().getScore();
-		
+		String totalScore = "Total score: " + mainController.getGame().getScore();
+
 		tagManPainterPlain.paint(g, mainController.getGame().getTagMan());
 		paintWalls(g);
 		paintDashes(g);
-		
+
 		// Paint text on frame
 		g.setColor(Color.YELLOW);
 
@@ -70,7 +70,7 @@ public class PlayView extends JPanel implements Observer {
 			drawCenteredString(g, instructionText, new Rectangle(new Dimension(getWidth(), getHeight() + 100)), getGameFont());
 		}
 		
-		//Crash Text
+		// Crash Text
 		if (mainController.getGame().getCrashed()) {
 			drawCenteredString(g, tagManHitText, new Rectangle(new Dimension(getWidth(), getHeight()  -200)), getGameFont());
 			drawCenteredString(g, gameOver, new Rectangle(new Dimension(getWidth(), getHeight() - 100)), getGameFont());

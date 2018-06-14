@@ -14,7 +14,7 @@ public class Wall extends GameObject {
 		super(dimension, point);
 		this.dimension = dimension;
 		this.point = point;
-		
+
 		this.wallColour = new Color(64, 64, 64);
 	}
 
@@ -33,11 +33,12 @@ public class Wall extends GameObject {
 	public void setPoint(Point point) {
 		this.point = point;
 	}
-	
+
 	public Color getWallColour() {
 		return wallColour;
 	}
-	
+
+	// Returns a rectangle of the wall for collision detection purposes
 	public Rectangle getBounds() {
 		return new Rectangle(getX(), getY(), getWidth(), getHeight());
 	}

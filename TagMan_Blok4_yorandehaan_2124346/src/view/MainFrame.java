@@ -12,13 +12,13 @@ import model.Game;
 public class MainFrame extends JFrame implements Runnable, KeyListener {
 	private MainController mainController;
 	private ContentPane contentPane;
-	public static int FPS = 60; 
+	public static int FPS = 60;
 
 	public MainFrame(MainController controller, Game game) {
 		this.mainController = controller;
 		contentPane = new ContentPane(controller, game);
-		this.addKeyListener(this);
-		this.startThread();
+		addKeyListener(this);
+		startThread();
 	}
 
 	public void initializeFrame() {
@@ -41,7 +41,6 @@ public class MainFrame extends JFrame implements Runnable, KeyListener {
 		new Thread(this).start();
 	}
 
-	
 	// Calls the correct methods when KeyInput is given.
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -55,13 +54,14 @@ public class MainFrame extends JFrame implements Runnable, KeyListener {
 		if (event == 27) {
 			mainController.systemExit();
 		}
-		
+
 		if (event == 'l' && mainController.getGame().getSucces()) {
-			mainController.stop();
-			mainController.getGame().loadLevel();
-			mainController.resetTimer();
+			if (!mainController.getGame().getGameFinished()) {
+				mainController.stop();
+				mainController.getGame().loadLevel();
+				mainController.resetTimer();
+			}
 		}
-		
 		mainController.move(e);
 	}
 
@@ -79,6 +79,7 @@ public class MainFrame extends JFrame implements Runnable, KeyListener {
 		return contentPane;
 	}
 
+	// This basically repaints the frame 60x per second (60FPS)
 	@Override
 	public void run() {
 		while (true) {

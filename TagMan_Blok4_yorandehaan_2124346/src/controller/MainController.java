@@ -164,7 +164,7 @@ public class MainController {
 		timeController.startTimer();
 	}
 	
-	// Interrupts threads if the tagMan crashed or if the tagMan finished
+	// Interrupts threads if the tagMan crashed or if the tagMan is finished
 	public void stop() {
 		if (game.getCrashed() || game.getSucces()) {
 			timeControllerThread.interrupt();
