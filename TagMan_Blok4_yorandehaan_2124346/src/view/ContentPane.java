@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import controller.MainController;
 import model.Game;
 
+@SuppressWarnings("serial")
 public class ContentPane extends JPanel {
 	private MainController mainController;
 	private TimeView timeView;

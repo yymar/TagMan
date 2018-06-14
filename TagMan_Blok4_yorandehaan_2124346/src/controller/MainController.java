@@ -27,7 +27,15 @@ public class MainController {
 		timeController.addObserver(mainFrame.getTimeView());
 		mainFrame.initializeFrame();
 	}
-
+	
+	/*
+	 * Move method checks if the player is allowed to move. It gets the KeyEvent e from the MainFrame.
+	 * First it checks if start is pressed 
+	 * Secondly it checks if the game hasn't succeeded yet
+	 * Thirdly it checks if the tagMan hasn't crashed yet in game
+	 * Then I basically coded every what it's supposed to do with every KeyEvent (move up down etc.)
+	 */
+	
 	public void move(KeyEvent e) {
 		int keyPressed = e.getKeyCode();
 		TagMan tagMan = game.getTagMan();
@@ -88,6 +96,7 @@ public class MainController {
 		}
 	}
 
+	// Checks for collision with walls.
 	public boolean collidesWithWalls(int x, int y) {
 		for (GameObject object : game.getWalls()) {
 			if (game.getTagMan().willCollide(object, x, y)) {
@@ -97,6 +106,7 @@ public class MainController {
 		return false;
 	}
 
+	// Checks for collision with dashes.
 	public boolean collidesWithDashes(int x, int y) {
 		for (GameObject object : game.getDashes()) {
 			if (game.getTagMan().willCollide(object, x, y)) {
@@ -107,7 +117,11 @@ public class MainController {
 		}
 		return false;
 	}
-
+	
+	/*
+	 * Checks if the tagMan is in the finish area, if so it sets success to true and it set the color to green.
+	 */
+	
 	public void checkFinished() {
 		TagMan tagMan = game.getTagMan();
 		Rectangle tagManHitBox = game.getTagMan().getBounds();
@@ -132,35 +146,25 @@ public class MainController {
 	public void systemExit() {
 		System.exit(0);
 	}
-	
-	public void updateTimerAmount(int i) {
-		game.updateTimerAmount(i);
+
+	public void resetTimer() {
+		game.resetTimer(getMaxTime());
+		mainFrame.getTimeView().resetTimer();
 	}
 
-	public int getTimeAmount() {
-		return game.getTimerAmount();
-	}
-	
-	public int getMaxTime() {
-		return Game.getMaxTime();
-	}
-	
-	public void resetTimer() {
-        game.resetTimer(getMaxTime());
-        mainFrame.getTimeView().resetTimer();
-	}
-	
 	public void startGameThread() {
 		this.gameThread = new Thread(game);
 		gameThread.start();
 		game.startGameThread();
 	}
+
 	public void startTimerThread() {
 		this.timeControllerThread = new Thread(timeController);
 		timeControllerThread.start();
 		timeController.startTimer();
 	}
-
+	
+	// Interrupts threads if the tagMan crashed or if the tagMan finished
 	public void stop() {
 		if (game.getCrashed() || game.getSucces()) {
 			timeControllerThread.interrupt();
@@ -168,7 +172,19 @@ public class MainController {
 		}
 	}
 
+	public void updateTimerAmount(int i) {
+		game.updateTimerAmount(i);
+	}
+
+	public int getTimeAmount() {
+		return game.getTimerAmount();
+	}
+
+	public int getMaxTime() {
+		return Game.getMaxTime();
+	}
+
 	public Game getGame() {
-		return game;	
+		return game;
 	}
 }

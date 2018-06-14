@@ -17,6 +17,7 @@ import model.Dash;
 import model.Game;
 import model.Wall;
 
+@SuppressWarnings("serial")
 public class PlayView extends JPanel implements Observer {
 	private MainController mainController;
 	private TagManPainterPlain tagManPainterPlain;
@@ -55,46 +56,48 @@ public class PlayView extends JPanel implements Observer {
 		paintWalls(g);
 		paintDashes(g);
 		
+		// Paint text on frame
+		g.setColor(Color.YELLOW);
+
+		// Welcome Text
 		if (!mainController.getGame().getStartPressed()) {
-			// Draw text
-			g.setColor(Color.YELLOW);
-			
 			if (mainController.getGame().getLevel() == 1) {
-				this.drawCenteredString(g, welcomeText, new Rectangle(new Dimension(getWidth(), getHeight() - 200)),
-						new Font("Helvetica", Font.PLAIN, 32));
+				drawCenteredString(g, welcomeText, new Rectangle(new Dimension(getWidth(), getHeight() - 200)), getGameFont());
 			}
 			
-			this.drawCenteredString(g, introText, new Rectangle(new Dimension(getWidth(), getHeight() - 100)), new Font("Helvetica", Font.PLAIN, 32));
-			this.drawCenteredString(g, levelText , new Rectangle(new Dimension(getWidth(), getHeight())), new Font("Helvetica", Font.PLAIN, 32));
-			this.drawCenteredString(g, instructionText, new Rectangle(new Dimension(getWidth(), getHeight() + 100)), new Font("Helvetica", Font.PLAIN, 32));
+			drawCenteredString(g, introText, new Rectangle(new Dimension(getWidth(), getHeight() - 100)), getGameFont());
+			drawCenteredString(g, levelText , new Rectangle(new Dimension(getWidth(), getHeight())), getGameFont());
+			drawCenteredString(g, instructionText, new Rectangle(new Dimension(getWidth(), getHeight() + 100)), getGameFont());
 		}
 		
-		//Crash text
+		//Crash Text
 		if (mainController.getGame().getCrashed()) {
-			g.setColor(Color.YELLOW);
-			this.drawCenteredString(g, tagManHitText, new Rectangle(new Dimension(getWidth(), getHeight()  -200)), new Font("Helvetica", Font.PLAIN, 32));
-			this.drawCenteredString(g, gameOver, new Rectangle(new Dimension(getWidth(), getHeight() - 100)), new Font("Helvetica", Font.PLAIN, 32));
-			this.drawCenteredString(g, yourScore, new Rectangle(new Dimension(getWidth(), getHeight())), new Font("Helvetica", Font.PLAIN, 32));
-			this.drawCenteredString(g, exitString, new Rectangle(new Dimension(getWidth(), getHeight() + 100)), new Font("Helvetica", Font.PLAIN, 32));
+			drawCenteredString(g, tagManHitText, new Rectangle(new Dimension(getWidth(), getHeight()  -200)), getGameFont());
+			drawCenteredString(g, gameOver, new Rectangle(new Dimension(getWidth(), getHeight() - 100)), getGameFont());
+			drawCenteredString(g, yourScore, new Rectangle(new Dimension(getWidth(), getHeight())), getGameFont());
+			drawCenteredString(g, exitString, new Rectangle(new Dimension(getWidth(), getHeight() + 100)), getGameFont());
 		}
 		
-		// Finished text
+		// Finished Text
 		if (mainController.getGame().getSucces() && !mainController.getGame().getGameFinished()) {
-			g.setColor(Color.YELLOW);
-			this.drawCenteredString(g, finished, new Rectangle(new Dimension(getWidth(), getHeight()  - 200)), new Font("Helvetica", Font.PLAIN, 32));
-			this.drawCenteredString(g, yourScoreFinish, new Rectangle(new Dimension(getWidth(), getHeight()  - 100)), new Font("Helvetica", Font.PLAIN, 32));
-			this.drawCenteredString(g, continueGame, new Rectangle(new Dimension(getWidth(), getHeight()  + 100)), new Font("Helvetica", Font.PLAIN, 32));
+			drawCenteredString(g, finished, new Rectangle(new Dimension(getWidth(), getHeight()  - 200)),getGameFont());
+			drawCenteredString(g, yourScoreFinish, new Rectangle(new Dimension(getWidth(), getHeight()  - 100)), getGameFont());
+			drawCenteredString(g, continueGame, new Rectangle(new Dimension(getWidth(), getHeight()  + 100)), getGameFont());
 		}
-
-		if (mainController.getGame().getSucces() && mainController.getGame().getGameFinished()) {
-			g.setColor(Color.YELLOW);
-			this.drawCenteredString(g, youWon, new Rectangle(new Dimension(getWidth(), getHeight() - 200)), new Font("Helvetica", Font.PLAIN, 32));
-			this.drawCenteredString(g, gameOver, new Rectangle(new Dimension(getWidth(), getHeight() - 100)), new Font("Helvetica", Font.PLAIN, 32));
-			this.drawCenteredString(g, totalScore, new Rectangle(new Dimension(getWidth(), getHeight())), new Font("Helvetica", Font.PLAIN, 32));
-			this.drawCenteredString(g, exitString, new Rectangle(new Dimension(getWidth(), getHeight() + 100)), new Font("Helvetica", Font.PLAIN, 32));
-		}
-	
 		
+		// Win Text
+		if (mainController.getGame().getSucces() && mainController.getGame().getGameFinished()) {
+			drawCenteredString(g, youWon, new Rectangle(new Dimension(getWidth(), getHeight() - 200)), getGameFont());
+			drawCenteredString(g, gameOver, new Rectangle(new Dimension(getWidth(), getHeight() - 100)), getGameFont());
+			drawCenteredString(g, totalScore, new Rectangle(new Dimension(getWidth(), getHeight())), getGameFont());
+			drawCenteredString(g, exitString, new Rectangle(new Dimension(getWidth(), getHeight() + 100)), getGameFont());
+		}
+	}
+
+	
+	// Returns Game Font to decrease the drawCenteredString methods parameter length.
+	private Font getGameFont() {
+		return new Font("Helvetica", Font.PLAIN, 32);
 	}
 
 	private void paintDashes(Graphics g) {
@@ -137,7 +140,6 @@ public class PlayView extends JPanel implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		Game game = (Game) o;
-		
+
 	}
 }

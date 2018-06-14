@@ -11,18 +11,16 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import controller.MainController;
 import model.Game;
 
+@SuppressWarnings("serial")
 public class GameView extends JPanel implements Observer {
 	private JLabel scoreText;
 	private JLabel scoreInt;
 	private JLabel levelText;
 	private JLabel levelInt;
-	private MainController mainController;
 
 	public GameView(Game game) {
-		this.mainController = mainController;
 		game.addObserver(this);
 		setBackground(Color.BLACK);
 		setPreferredSize(new Dimension(0, 300));

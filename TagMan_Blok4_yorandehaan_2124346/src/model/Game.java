@@ -19,6 +19,7 @@ public class Game extends Observable implements Runnable {
 	private boolean startPressed;
 	private boolean succes;
 	private boolean crashed;
+	@SuppressWarnings("unused")
 	private boolean gameFinished;
 	
 	public Game() {

@@ -21,7 +21,8 @@ public class Dash extends GameObject {
 		this.dimension = dimension;
 		this.point = point;
 		this.random = new Random();
-
+		
+		// speed always + 1 so it can't be 0.
 		this.speed = random.nextInt(4) + 1;
 
 		this.xPos = getX();
@@ -29,6 +30,7 @@ public class Dash extends GameObject {
 		this.dashColour = Color.RED;
 	}
 
+	// determines if the dash can move, based on a random integer between 0 and 30;
 	public void setIsMoving() {
 		int chanceOfDrop = random.nextInt(30);
 		if (chanceOfDrop == 1) {
@@ -64,7 +66,8 @@ public class Dash extends GameObject {
 	public void setPoint(Point point) {
 		this.point = point;
 	}
-
+	
+	// Returns
 	public Rectangle getBounds() {
 		return new Rectangle(getX(), getY(), getWidth(), getHeight());
 	}
