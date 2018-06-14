@@ -2,18 +2,17 @@ package view;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.Observable;
 
 import javax.swing.JFrame;
 
 import controller.MainController;
 import model.Game;
 
+@SuppressWarnings("serial")
 public class MainFrame extends JFrame implements Runnable, KeyListener {
 	private MainController mainController;
 	private ContentPane contentPane;
 	public static int FPS = 60; 
-	private char startChar = 's';
 
 	public MainFrame(MainController controller, Game game) {
 		this.mainController = controller;
@@ -23,15 +22,15 @@ public class MainFrame extends JFrame implements Runnable, KeyListener {
 	}
 
 	public void initializeFrame() {
-		this.setTitle("TagMan by Yoran de Haan");
-		this.setContentPane(contentPane);
-		this.setResizable(false);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.pack();
-		this.setVisible(true);
-		this.setLocationRelativeTo(null);
-		this.setFocusable(true);
-		this.requestFocus();
+		setTitle("TagMan by Yoran de Haan");
+		setContentPane(contentPane);
+		setResizable(false);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		pack();
+		setVisible(true);
+		setLocationRelativeTo(null);
+		setFocusable(true);
+		requestFocus();
 	}
 
 	public TimeView getTimeView() {
@@ -42,18 +41,8 @@ public class MainFrame extends JFrame implements Runnable, KeyListener {
 		new Thread(this).start();
 	}
 
-	@Override
-	public void run() {
-		while (true) {
-			try {
-				Thread.sleep(1000 / FPS);
-				this.repaint();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
+	
+	// Calls the correct methods when KeyInput is given.
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int event = e.getKeyChar();
@@ -88,5 +77,17 @@ public class MainFrame extends JFrame implements Runnable, KeyListener {
 
 	public ContentPane getContentPane() {
 		return contentPane;
+	}
+
+	@Override
+	public void run() {
+		while (true) {
+			try {
+				Thread.sleep(1000 / FPS);
+				this.repaint();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }

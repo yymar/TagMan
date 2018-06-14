@@ -15,8 +15,8 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import controller.MainController;
-import model.Game;
 
+@SuppressWarnings("serial")
 public class TimeView extends JPanel implements Observer {
 	private JLabel secondsText;
 	private JLabel secondsInt;
@@ -25,7 +25,6 @@ public class TimeView extends JPanel implements Observer {
 	private int timerHeight;
 	private int interval;
 	private int timerY;
-	private Color timerColour;
 
 	public TimeView(MainController mainController) {
 		this.mainController = mainController;
@@ -33,7 +32,6 @@ public class TimeView extends JPanel implements Observer {
 		this.setBackground(Color.BLACK);
 		this.setLayout(new BorderLayout());
 		setBorder(BorderFactory.createLineBorder(Color.GRAY, 2));
-		this.timerColour = Color.CYAN;
 		setupJLabels();
 	}
 
@@ -57,7 +55,6 @@ public class TimeView extends JPanel implements Observer {
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		int amountOfSeconds = mainController.getTimeAmount();
 		int middleOfPanelWidth = (getWidth() / 2) - (TIMERWIDTH / 2);
 
 		int drawHeight = (getHeight() - getHeight() / 8) + timerY * -1;
@@ -94,11 +91,6 @@ public class TimeView extends JPanel implements Observer {
 		interval = timerHeight / mainController.getMaxTime();
 		timerY = mainController.getTimeAmount() * interval;
 		secondsInt.setText(mainController.getTimeAmount() + "");
-		setTimerColour(Color.CYAN);
-	}
-
-	public void setTimerColour(Color timerColour) {
-		this.timerColour = timerColour;
 	}
 
 	@Override
